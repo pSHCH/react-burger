@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { DragIcon, LockIcon, DeleteIcon, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
@@ -7,9 +8,7 @@ import burgerIngredientStyle from './burger-ingredient.module.css';
 
 class BurgerIngredients extends React.Component {
   render() {
-    console.log(this.props.data)
-
-    const { name, image_mobile, price } = this.props.data
+    const { name, image_mobile, price } = this.props.data;
 
     return (
       <div className={burgerIngredientStyle.wrap}>
@@ -35,5 +34,15 @@ class BurgerIngredients extends React.Component {
     );
   }
 }
+
+BurgerIngredients.propTypes = {
+  top: PropTypes.bool,
+  bottom: PropTypes.bool,
+  data: PropTypes.shape({
+    image_mobile: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }).isRequired,
+};
 
 export default BurgerIngredients;

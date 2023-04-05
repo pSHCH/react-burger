@@ -11,14 +11,14 @@ class App extends React.Component {
       <header className={headerStyles.header}>
         <nav className={headerStyles.navigation}>
           <ul className={headerStyles.grid}>
-            
+
             <li className={headerStyles.col}>
               <ul className={headerStyles.menu}>
                 <li className={headerStyles.item}>
                   <MenuItem link='/' title='Конструктор' icon ='list' active/>
                 </li>
                 <li className={headerStyles.item}>
-                  <MenuItem link='/' title='Лента заказов'  />
+                  <MenuItem link='/' title='Лента заказов' />
                 </li>
               </ul>
             </li>

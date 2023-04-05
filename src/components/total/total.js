@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import totalStyle from './total.module.css';
@@ -8,7 +9,7 @@ class Total extends React.Component {
     return(
       <div className={totalStyle.total}>
         <div className={totalStyle.price}>
-          <span className={totalStyle.cout}>620</span>
+          <span className={totalStyle.cout}>{this.props.total}</span>
           <CurrencyIcon type='primary' />
         </div>
 
@@ -19,5 +20,9 @@ class Total extends React.Component {
     );
   }
 }
+
+Total.propTypes = {
+  total: PropTypes.number.isRequired
+};
 
 export default Total;

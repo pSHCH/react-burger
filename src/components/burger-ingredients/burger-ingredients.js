@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import cn from 'classnames';
 import BurgerSection from '../burger-section/burger-section';
 import Tabs from '../tabs/tabs';
@@ -27,5 +28,14 @@ class BurgerIngredients extends React.Component {
     );
   }
 }
+
+BurgerIngredients.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    image_large: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  })).isRequired,
+};
 
 export default BurgerIngredients;

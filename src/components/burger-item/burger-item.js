@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
@@ -21,5 +22,13 @@ class BurgerItem extends React.Component {
     );
   }
 }
+
+BurgerItem.propTypes = {
+  item: PropTypes.shape({
+    image_large: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  }),
+};
 
 export default BurgerItem;

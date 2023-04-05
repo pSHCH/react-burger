@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import BurgerItem from '../burger-item/burger-item';
 import burgerSectionStyle from './burger-section.module.css';
@@ -18,5 +19,15 @@ class BurgerSection extends React.Component {
     );
   }
 }
+
+BurgerSection.propTypes = {
+  title: PropTypes.string.isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    image_large: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+  })).isRequired,
+};
 
 export default BurgerSection;
