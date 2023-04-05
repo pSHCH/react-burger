@@ -1,0 +1,24 @@
+.subtitle {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  margin-bottom: var(--x6);
+  color: var(--text);
+  margin-top: 0;
+}
+
+.section {
+  margin-bottom: var(--x10);
+}
+
+.section:last-child {
+  margin-bottom: 0;
+}
+
+.variats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: var(--x6);
+  grid-row-gap: var(--x8);
+  padding: 0 var(--x4);
+}

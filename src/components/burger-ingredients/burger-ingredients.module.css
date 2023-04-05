@@ -1,0 +1,15 @@
+.title {
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 40px;
+  margin-top: var(--x10);
+  margin-bottom: var(--x5);
+  color: var(--text);
+}
+
+.sectons {
+  height: calc( 100vh - 244px );  /* header 88px + components before sections 156px */  
+  box-sizing: border-box;
+  overflow-y: scroll;
+  padding: var(--x10) 0;
+}

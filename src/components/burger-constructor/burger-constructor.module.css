@@ -1,0 +1,12 @@
+.sectons {
+  height: calc( 100vh - 484px );
+  box-sizing: border-box;
+  overflow-y: scroll;
+  margin-top: var(--x4);
+  margin-bottom: var(--x4);
+}
+
+.burger {
+  margin-top: var(--x25);
+  margin-bottom: var(--x10);
+}

@@ -1,0 +1,35 @@
+.wrap {
+  position: relative;
+}
+
+.image {
+  display: block;
+  padding: 0 var(--x4);
+  object-fit: contain;
+  margin-bottom: var(--x1);
+  height: var(--x30);
+}
+
+.info {
+  display: flex;
+  font-size: 28px;
+  line-height: 24px;
+  font-family: 'Iceland';
+  margin: var(--x1) 0;
+  justify-content: center;
+  gap: var(--x2);
+}
+
+.count {
+  margin-right: var(--x2s);
+}
+
+.title {
+  margin-top: var(--x1);
+  height: 48px;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: var(--light);
+  margin: 0;
+}

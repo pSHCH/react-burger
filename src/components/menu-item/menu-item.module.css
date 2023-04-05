@@ -1,0 +1,18 @@
+.item {
+  display: flex;
+  align-items: center;
+  padding: var(--x5) var(--x4);
+  text-decoration: none;
+  color: var(--text-secondary);
+}
+
+.item--state-active {
+  color: var(--light);
+}
+
+.text {
+  padding-left: var(--x2);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;  
+}

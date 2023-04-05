@@ -1,0 +1,75 @@
+.wrap {
+  margin-bottom: var(--x4);
+  display: flex;
+  justify-content: space-between;
+  width: calc( 100% - var(--x2) );
+  align-items: center;
+}
+
+.wrap:last-child {
+  margin: 0;
+}
+
+.item {
+  background-color: var(--modal-bg);    
+  box-sizing: border-box;
+  width: calc(100% - 32px);
+  padding: var(--x4) var(--x8)var(--x4) var(--x6);
+  border-radius: var(--x10);
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--x5);
+}
+
+.item--form-top {
+  border-radius: 88px 88px var(--x10) var(--x10);
+  margin: 0 var(--x3) 0 auto;
+  width: calc(100% - 48px);
+}
+
+.item--form-bottom {
+  border-radius:  var(--x10) var(--x10) 88px 88px;
+  margin: 0 var(--x3) 0 auto;
+  width: calc(100% - 48px);
+}
+
+.image {
+  width: var(--x20);
+  height: var(--x10);
+  object-fit: contain;
+}
+
+.title {
+  font-size: 16px;
+  line-height: 24px;
+  margin: 0;
+  width: 100%;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: var(--x2);
+}
+
+.count {
+  font-family: 'Iceland';
+  font-size: 28px;
+  line-height: 24px;
+}
+
+.remove {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  width: max-content;
+  cursor: pointer;
+  outline: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: none;
+  text-decoration: none;
+}
