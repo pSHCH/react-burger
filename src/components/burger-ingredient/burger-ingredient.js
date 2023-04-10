@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { DragIcon, LockIcon, DeleteIcon, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
-
 import burgerIngredientStyle from './burger-ingredient.module.css';
 
 function BurgerIngredients(props) {

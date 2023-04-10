@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-
+import { useMemo } from 'react';
 import BurgerItem from '../burger-item/burger-item';
 import burgerSectionStyle from './burger-section.module.css';
 
@@ -10,9 +10,9 @@ function BurgerSection(props) {
       <h2 className={burgerSectionStyle.subtitle}>{props.title}</h2>
 
       <ul className={burgerSectionStyle.variats}>
-        {props.data.map((item) => {
+        {useMemo(() => props.data.map((item) => {
           return <BurgerItem item={item} key={item._id} openModal={props.openModal}/>
-        })}
+        }), [props.data, props.openModal])}
       </ul>
   </section>
   );

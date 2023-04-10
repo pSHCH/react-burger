@@ -8,7 +8,8 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import modalStyle from './modal.module.css';
 
-const modalRoot = document.getElementById('root');
+const modalRoot = document.getElementById('react-modals');
+const escCode = 27; 
 
 function Modal(props) {
 
@@ -21,11 +22,11 @@ function Modal(props) {
   }, []);
 
   const keyboardPress = (e) => {
-    if (e.keyCode === 27) {
+    if (e.keyCode === escCode) {
       props.onClose();
     }
   }
- 
+  
   return ReactDOM.createPortal( 
     ( 
       <>
@@ -38,7 +39,7 @@ function Modal(props) {
           </header>
 
           { props.modalType === 'order' && <OrderDetails /> }
-          { props.modalType === 'ingredient' && <IngredientDetails item={props.itemData} />}
+          { props.modalType === 'ingredient' && <IngredientDetails item={props?.itemData} />}
         </div>
 
         <ModalOverlay onClick={props.onClose}/>

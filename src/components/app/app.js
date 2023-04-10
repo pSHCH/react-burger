@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import { DATAURL } from '../../utils/consts';
+
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
@@ -14,25 +16,22 @@ function App() {
     data: [],
   });
   const [isOpen, setIsOpen] = useState(false);
-  const [itemData, setItemData] = useState({});
+  const [itemData, setItemData] = useState(null);
   const [modalType, setModalType] = useState('');
-
-  const dataUrl = 'https://norma.nomoreparties.space/api/ingredients';
   
   const getData = async (url) => {
     setState({ ...state, error: false, loading: true });
     try {
       const res = await fetch(url);
-      const data = await res.json();
+      const data = res.ok ? await res.json() : await res.json().then((err) => Promise.reject(err));
       setState({ ...state, data, loading: false })
-    } catch (err) {
-      setState({ ...state, error: true, loading: false });  
-      console.log(err);
+    } catch (err) { 
+      setState({ ...state, error: true, loading: false });
     }
   };
   
   useEffect(() => {
-    getData(dataUrl);
+    getData(DATAURL);
   }, []);
 
   const { data, loading, error } = state;

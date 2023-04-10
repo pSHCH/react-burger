@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useMemo } from 'react';
 import cn from 'classnames';
 import BurgerSection from '../burger-section/burger-section';
 import Tabs from '../tabs/tabs';
@@ -8,9 +9,9 @@ import burgerIngredientsStyle from './burger-ingredients.module.css';
 function BurgerIngredients(props) {
 
   const data = props.data;
-  const bun = data.filter(item => item.type === 'bun');
-  const main = data.filter(item => item.type === 'main');
-  const sauce = data.filter(item => item.type === 'sauce');
+  const bun = useMemo(() => data.filter(item => item.type === 'bun'), [data]);
+  const main = useMemo(() =>data.filter(item => item.type === 'main'), [data]);
+  const sauce = useMemo(() => data.filter(item => item.type === 'sauce'), [data]);
 
   return (
     <>

@@ -28,7 +28,7 @@ BurgerItem.propTypes = {
     image_large: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
-  }),
+  }).isRequired,
 };
 
 export default BurgerItem;
