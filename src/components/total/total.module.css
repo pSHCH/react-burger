@@ -1,0 +1,16 @@
+.total {
+  display: flex;
+  gap: var(--x10);
+  justify-content: end;
+  align-items: center;
+  padding-right: var(--x5);
+}
+
+.price {
+  display: flex;
+  gap: var(--x2);
+  font-size: 48px;
+  line-height: 36px;
+  font-family: 'Iceland';
+  align-items: center;
+}

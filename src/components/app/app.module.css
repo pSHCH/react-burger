@@ -1,0 +1,30 @@
+.main {
+  background-color: var(--bg);
+  min-height: 100vh;
+  min-width: 1280px;
+  box-sizing: border-box;
+  font-family: 'Jet Brains Mono'; 
+}
+
+.grid {
+  padding: 0 var(--x5);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: var(--x10);
+  grid-row-gap: 0px;
+  height: calc(100vh - var(--header-height));
+  max-width: var(--max-width);
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.notification {
+  text-align: center;
+}
+
+.hidden {    
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}

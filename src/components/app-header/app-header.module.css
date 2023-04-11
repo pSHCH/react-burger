@@ -1,0 +1,39 @@
+.header {
+  background-color: var(--modal-bg);
+}
+
+.navigation {
+  margin: 0 auto;
+  height: var(--header-height);
+  max-width: var(--max-width);
+}
+
+.menu {
+  display: flex;
+}
+
+.item:not(:last-child) {
+  margin-right: var(--x2);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  height: 100%;
+}
+
+.col {
+  display: flex;
+  align-items: center;
+}
+
+.col:nth-child(2) {
+  justify-content: center;
+}
+
+.col:nth-child(3) {
+  justify-content: end;
+}
