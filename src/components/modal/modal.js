@@ -38,7 +38,7 @@ function Modal(props) {
             </button>
           </header>
 
-          { props.modalType === 'order' && <OrderDetails /> }
+          { props.modalType === 'order' && <OrderDetails item={props?.itemData} /> }
           { props.modalType === 'ingredient' && <IngredientDetails item={props?.itemData} />}
         </div>
 
@@ -51,15 +51,21 @@ function Modal(props) {
 Modal.propTypes = { 
   modalType: PropTypes.oneOf(['order', 'ingredient']).isRequired,
   onClose: PropTypes.func.isRequired,
-  itemData: PropTypes.shape({
-    image_large: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    calories: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    proteins: PropTypes.number.isRequired,
-  }),  
-
+  itemData: PropTypes.oneOfType([
+    PropTypes.shape({
+      image_large: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      calories: PropTypes.number.isRequired,
+      carbohydrates: PropTypes.number.isRequired,
+      fat: PropTypes.number.isRequired,
+      proteins: PropTypes.number.isRequired,
+    }),  
+    PropTypes.shape({
+      order: PropTypes.shape({
+        number: PropTypes.number.isRequired,
+      }).isRequired
+    })
+  ]).isRequired,
 };
 
 export default Modal;

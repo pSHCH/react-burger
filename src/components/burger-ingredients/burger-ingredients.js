@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
-import { useMemo } from 'react';
 import cn from 'classnames';
+import { useMemo, useContext } from 'react';
+import { DataContext } from '../../utils/productsContext';
 import BurgerSection from '../burger-section/burger-section';
 import Tabs from '../tabs/tabs';
 
@@ -8,7 +9,9 @@ import burgerIngredientsStyle from './burger-ingredients.module.css';
 
 function BurgerIngredients(props) {
 
-  const data = props.data;
+  const { state } = useContext(DataContext);
+  const data = state?.data?.data;
+
   const bun = useMemo(() => data.filter(item => item.type === 'bun'), [data]);
   const main = useMemo(() =>data.filter(item => item.type === 'main'), [data]);
   const sauce = useMemo(() => data.filter(item => item.type === 'sauce'), [data]);
@@ -29,13 +32,7 @@ function BurgerIngredients(props) {
 }
 
 BurgerIngredients.propTypes = {
-  openModal: PropTypes.func.isRequired,
-  data: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    image_large: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-  })).isRequired,
+  openModal: PropTypes.func.isRequired
 };
 
 export default BurgerIngredients;

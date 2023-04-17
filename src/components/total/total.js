@@ -1,9 +1,55 @@
+import { useContext, useMemo } from 'react';
+import { DataContext } from '../../utils/productsContext';
+import { ORDERURL } from '../../utils/consts';
 import PropTypes from 'prop-types';
 import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import totalStyle from './total.module.css';
 
 function Total(props) {
+  const { state } = useContext(DataContext); //Данные из контекста должны быть доступны при нажатии на кнопку «Оформить заказ» и в блоке с итоговой стоимостью.
+  const ingredients = state?.data?.data;
+
+  // иммитируем данные бургера
+  const bunIngredient = useMemo(() => ingredients.filter(item => item.type === 'bun'), [ingredients]);
+  const wrapIngredient = bunIngredient[0];
+  const innerIngrediens = useMemo(() => ingredients.filter(item => item.type !== 'bun'), [ingredients]);
+
+  let ids = [];
+
+  ids.push(wrapIngredient._id); //верхняя булка
+  // прочее
+  innerIngrediens.map(item => {
+    ids.push(item._id)
+  })
+  ids.push(wrapIngredient._id); //нижняя булка
+  
+  // данные заказа
+  const data = {'ingredients': ids};
+
+  const postData = (url) => {
+    return fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json()
+        }  
+      })
+      .catch(err => {
+        return Promise.reject(`Ошибка ${err.status}`);
+      });
+  }
+
+  const addOrder = async () => {
+    const res = await postData(ORDERURL);
+    props.openModal('order', res);
+  }
 
   return(
     <div className={totalStyle.total}>
@@ -16,14 +62,13 @@ function Total(props) {
         htmlType='button' 
         type='primary' 
         size='medium'
-        onClick={() => props.openModal('order')}
+        onClick={() => addOrder()}
       >
         Оформить заказ
       </Button>
     </div>
   );
 }
-
 
 Total.propTypes = {
   openModal: PropTypes.func.isRequired,

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 import { DATAURL } from '../../utils/consts';
+import { DataContext } from '../../utils/productsContext';
 
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
@@ -34,7 +35,7 @@ function App() {
     getData(DATAURL);
   }, []);
 
-  const { data, loading, error } = state;
+  const { loading, error } = state;
 
   if(error) {
     return (
@@ -64,10 +65,14 @@ function App() {
         <AppHeader />
         <div className={appStyles.grid}>
           <section>
-            <BurgerIngredients data={data?.data} openModal={openModal}/>
+            <DataContext.Provider value={{ state }}>
+              <BurgerIngredients openModal={openModal}/>
+            </DataContext.Provider>
           </section>
           <section>
-            <BurgerConstructor data={data?.data} openModal={openModal}/>
+            <DataContext.Provider value={{ state }}>
+              <BurgerConstructor openModal={openModal}/>
+            </DataContext.Provider>
           </section>
         </div>
       </main>

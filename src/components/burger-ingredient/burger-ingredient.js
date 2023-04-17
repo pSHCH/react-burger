@@ -7,6 +7,7 @@ import burgerIngredientStyle from './burger-ingredient.module.css';
 function BurgerIngredients(props) {
 
   const { name, image_mobile, price } = props.data;
+  const subtitle = props.top ? '(верх)' : '(низ)';
 
   return (
     <div className={burgerIngredientStyle.wrap}>
@@ -18,7 +19,7 @@ function BurgerIngredients(props) {
         }
     )}>
         <img className={burgerIngredientStyle.image} alt={name} src={image_mobile} />
-        <h4 className={burgerIngredientStyle.title}>{name}</h4>
+        <h4 className={burgerIngredientStyle.title}>{name} {(props.top || props.bottom) && subtitle}</h4>
         <div className={burgerIngredientStyle.price}>
           <span className={burgerIngredientStyle.count}>{price}</span>
           <CurrencyIcon type='primary' />
