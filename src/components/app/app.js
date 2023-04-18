@@ -64,16 +64,14 @@ function App() {
       <main className={appStyles.main}>
         <AppHeader />
         <div className={appStyles.grid}>
-          <section>
-            <DataContext.Provider value={{ state }}>
+          <DataContext.Provider value={{ state }}>
+            <section>
               <BurgerIngredients openModal={openModal}/>
-            </DataContext.Provider>
-          </section>
-          <section>
-            <DataContext.Provider value={{ state }}>
+            </section>
+            <section>
               <BurgerConstructor openModal={openModal}/>
-            </DataContext.Provider>
-          </section>
+            </section>
+          </DataContext.Provider>
         </div>
       </main>
       <div className={appStyles.hidden}>

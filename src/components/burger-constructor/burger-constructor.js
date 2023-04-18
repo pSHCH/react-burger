@@ -15,11 +15,13 @@ function BurgerConstructor(props) {
   const bunIngredient = useMemo(() => data.filter(item => item.type === 'bun'), [data]);
   const wrapIngredient = bunIngredient[0];
   const innerIngrediens = useMemo(() => data.filter(item => item.type !== 'bun'), [data]);
-  const totalIngredients = useMemo(() => innerIngrediens.reduce(function(sum, item) {
-    return sum + item.price;
-  }, 0), [innerIngrediens]);
-  const totalWrapIngredients = useMemo(() => wrapIngredient.price * 2, [wrapIngredient]);
-  const total = totalIngredients + totalWrapIngredients;
+  const total = useMemo(() => {
+    const totalIngredients = innerIngrediens.reduce(function(sum, item) {
+      return sum + item.price;
+    }, 0);
+    const totalWrapIngredients = wrapIngredient.price * 2
+    return totalIngredients + totalWrapIngredients;
+  }, [innerIngrediens, wrapIngredient.price]);
 
   return (
     <>

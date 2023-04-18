@@ -8,26 +8,8 @@ import totalStyle from './total.module.css';
 
 function Total(props) {
   const { state } = useContext(DataContext); //Данные из контекста должны быть доступны при нажатии на кнопку «Оформить заказ» и в блоке с итоговой стоимостью.
-  const ingredients = state?.data?.data;
 
-  // иммитируем данные бургера
-  const bunIngredient = useMemo(() => ingredients.filter(item => item.type === 'bun'), [ingredients]);
-  const wrapIngredient = bunIngredient[0];
-  const innerIngrediens = useMemo(() => ingredients.filter(item => item.type !== 'bun'), [ingredients]);
-
-  let ids = [];
-
-  ids.push(wrapIngredient._id); //верхняя булка
-  // прочее
-  innerIngrediens.map(item => {
-    ids.push(item._id)
-  })
-  ids.push(wrapIngredient._id); //нижняя булка
-  
-  // данные заказа
-  const data = {'ingredients': ids};
-
-  const postData = (url) => {
+  const postData = (url, data) => {
     return fetch(url, {
       method: 'POST',
       headers: {
@@ -47,7 +29,25 @@ function Total(props) {
   }
 
   const addOrder = async () => {
-    const res = await postData(ORDERURL);
+    const ingredients = state?.data?.data;
+    // иммитируем данные бургера
+    const bunIngredient = ingredients.filter(item => item.type === 'bun');
+    const wrapIngredient = bunIngredient[0];
+    const innerIngrediens = ingredients.filter(item => item.type !== 'bun');
+    
+    let ids = [];
+
+    ids.push(wrapIngredient._id); //верхняя булка
+    // прочее
+    innerIngrediens.map(item => {
+      return ids.push(item._id)
+    })
+    ids.push(wrapIngredient._id); //нижняя булка
+    
+    // данные заказа
+    const data = {'ingredients': ids};
+    
+    const res = await postData(ORDERURL, data);
     props.openModal('order', res);
   }
 
