@@ -7,7 +7,7 @@ function BurgerSection(props) {
  
   return (
     <section className={burgerSectionStyle.section}>
-      <h2 className={burgerSectionStyle.subtitle}>{props.title}</h2>
+      <h2 className={burgerSectionStyle.subtitle} ref={props.refElem}>{props.title}</h2>
 
       <ul className={burgerSectionStyle.variats}>
         {useMemo(() => props.data.map((item) => {
@@ -27,6 +27,7 @@ BurgerSection.propTypes = {
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
   })).isRequired,
+  refElem: PropTypes.func.isRequired
 };
 
 export default BurgerSection;

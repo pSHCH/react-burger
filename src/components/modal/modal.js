@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
+import { useSelector } from 'react-redux';
 import ModalOverlay from '../modal-overlay/modal-ovelay';
 import OrderDetails from '../order-details/order-details';
 import IngredientDetails from '../ingredient-details/ingredient-details';
@@ -26,6 +27,8 @@ function Modal(props) {
       props.onClose();
     }
   }
+
+
   
   return ReactDOM.createPortal( 
     ( 
@@ -38,8 +41,8 @@ function Modal(props) {
             </button>
           </header>
 
-          { props.modalType === 'order' && <OrderDetails item={props?.itemData} /> }
-          { props.modalType === 'ingredient' && <IngredientDetails item={props?.itemData} />}
+          { props.modalType === 'order' && <OrderDetails /> }
+          { props.modalType === 'ingredient' && <IngredientDetails />}
         </div>
 
         <ModalOverlay onClick={props.onClose}/>
@@ -50,22 +53,7 @@ function Modal(props) {
 
 Modal.propTypes = { 
   modalType: PropTypes.oneOf(['order', 'ingredient']).isRequired,
-  onClose: PropTypes.func.isRequired,
-  itemData: PropTypes.oneOfType([
-    PropTypes.shape({
-      image_large: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      calories: PropTypes.number.isRequired,
-      carbohydrates: PropTypes.number.isRequired,
-      fat: PropTypes.number.isRequired,
-      proteins: PropTypes.number.isRequired,
-    }),  
-    PropTypes.shape({
-      order: PropTypes.shape({
-        number: PropTypes.number.isRequired,
-      }).isRequired
-    })
-  ]).isRequired,
+  onClose: PropTypes.func.isRequired
 };
 
 export default Modal;

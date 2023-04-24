@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
-
-import { DATAURL } from '../../utils/consts';
-import { DataContext } from '../../utils/productsContext';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd';
+import { INGREDIENTS_MODAL_CLOSE } from '../../services/actions';
 
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
@@ -11,52 +12,32 @@ import Modal from '../modal/modal';
 import appStyles from './app.module.css';
 
 function App() {
-  const [state, setState] = useState({ 
-    loading: true,
-    error: false,
-    data: [],
-  });
+  const { ingredientsRequest, ingredientsFailed, ingredients } = useSelector(store => store.ingredients);
+  const dispatch = useDispatch();
+
   const [isOpen, setIsOpen] = useState(false);
-  const [itemData, setItemData] = useState(null);
   const [modalType, setModalType] = useState('');
-  
-  const getData = async (url) => {
-    setState({ ...state, error: false, loading: true });
-    try {
-      const res = await fetch(url);
-      const data = res.ok ? await res.json() : await res.json().then((err) => Promise.reject(err));
-      setState({ ...state, data, loading: false })
-    } catch (err) { 
-      setState({ ...state, error: true, loading: false });
-    }
-  };
-  
-  useEffect(() => {
-    getData(DATAURL);
-  }, []);
 
-  const { loading, error } = state;
-
-  if(error) {
+  if(ingredientsFailed && !!ingredients.length) {
     return (
       <p className={appStyles.notification}>Что-то пошло не так</p>
     );
   }
 
-  if(loading) {
+  if(ingredientsRequest && !!ingredients.length) {
     return (
       <p className={appStyles.notification}>Загрузка...</p>
     );
   }
 
-  const openModal = (type, item) => {
+  const openModal = (type) => {
     setIsOpen(true);
-    setItemData(item);
     setModalType(type);
   }
 
   const onClose = () => {
     setIsOpen(false);
+    dispatch({ type: INGREDIENTS_MODAL_CLOSE, ingredient: null })
   }
  
   return (  
@@ -64,20 +45,19 @@ function App() {
       <main className={appStyles.main}>
         <AppHeader />
         <div className={appStyles.grid}>
-          <DataContext.Provider value={{ state }}>
+          <DndProvider backend={HTML5Backend}>
             <section>
-              <BurgerIngredients openModal={openModal}/>
+              <BurgerIngredients openModal={openModal} />
             </section>
             <section>
               <BurgerConstructor openModal={openModal}/>
             </section>
-          </DataContext.Provider>
+          </DndProvider>
         </div>
       </main>
       <div className={appStyles.hidden}>
         {isOpen && <Modal 
-          onClose={onClose} 
-          itemData={itemData} 
+          onClose={onClose}
           modalType={modalType}
         />}
       </div>
