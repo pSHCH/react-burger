@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import { useSelector } from 'react-redux';
 import ModalOverlay from '../modal-overlay/modal-ovelay';
-import OrderDetails from '../order-details/order-details';
-import IngredientDetails from '../ingredient-details/ingredient-details';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import modalStyle from './modal.module.css';
@@ -28,21 +25,17 @@ function Modal(props) {
     }
   }
 
-
-  
   return ReactDOM.createPortal( 
     ( 
       <>
         <div className={modalStyle.wrap}>
           <header className={modalStyle.header}>
-            { props.modalType === 'ingredient' && <h4 className={modalStyle.title}>Детали ингредиента</h4> }
+            { !!props.title && <h4 className={modalStyle.title}>{props.title}</h4> }
             <button className={modalStyle.button} onClick={props.onClose}>
               <CloseIcon type='primary' />
             </button>
           </header>
-
-          { props.modalType === 'order' && <OrderDetails /> }
-          { props.modalType === 'ingredient' && <IngredientDetails />}
+          { props.children }
         </div>
 
         <ModalOverlay onClick={props.onClose}/>
@@ -52,8 +45,9 @@ function Modal(props) {
 }
 
 Modal.propTypes = { 
-  modalType: PropTypes.oneOf(['order', 'ingredient']).isRequired,
-  onClose: PropTypes.func.isRequired
+  children: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
+  title: PropTypes.string,
 };
 
 export default Modal;

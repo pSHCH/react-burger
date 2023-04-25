@@ -46,7 +46,7 @@ function BurgerIngredients(props) {
   const sauce = useMemo(() => ingredients.filter(item => item.type === 'sauce'), [ingredients]);
 
   return (
-    <>
+    <section>
       <h1 className={burgerIngredientsStyle.title}>Соберите бургер</h1>
 
       <Tabs />
@@ -56,7 +56,7 @@ function BurgerIngredients(props) {
         <BurgerSection title='Начинки' data={main} openModal={props.openModal} refElem={mainRef}/>
         <BurgerSection title='Соусы' data={sauce} openModal={props.openModal} refElem={sauceRef}/>
       </div>
-    </>
+    </section>
   );
 }
 

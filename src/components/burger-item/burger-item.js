@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { INGREDIENTS_MODAL_OPEN } from '../../services/actions';
+import { itemType } from '../../utils/types';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import burgerItemStyle from './burger-item.module.css';
 
 function BurgerItem(props) {
-
   const { image_large, name, price, _id } = props.item;
   const dispatch = useDispatch();
   const ingredientsInCart = useSelector(store => store.cart.ingredientsInCart);
@@ -38,11 +38,7 @@ function BurgerItem(props) {
 
 BurgerItem.propTypes = {
   openModal: PropTypes.func.isRequired,
-  item: PropTypes.shape({
-    image_large: PropTypes.string.isRequired, 
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-  }).isRequired,
+  item: PropTypes.shape(itemType).isRequired,
 };
 
 export default BurgerItem;

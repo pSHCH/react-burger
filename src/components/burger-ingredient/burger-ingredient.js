@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { useRef } from 'react'
 import { useDispatch } from 'react-redux';
 import { REMOVE_INGREDIENTS_CART } from '../../services/actions';
+import { ingredientType } from '../../utils/types';
 import { useDrag, useDrop } from 'react-dnd'
 import cn from 'classnames';
 import { DragIcon, LockIcon, DeleteIcon, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -16,7 +17,7 @@ function BurgerIngredients({
   moveCard,
 }) {
   const dispatch = useDispatch(); 
-  const ref = useRef(null)
+  const ref = useRef(null);
 
   const { name, image_mobile, price } = data;
   const subtitle = top ? '(верх)' : '(низ)';
@@ -100,11 +101,7 @@ function BurgerIngredients({
 BurgerIngredients.propTypes = {
   top: PropTypes.bool,
   bottom: PropTypes.bool,
-  data: PropTypes.shape({
-    image_mobile: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-  }).isRequired,
+  data: PropTypes.shape(ingredientType).isRequired,
   index: PropTypes.number,
   moveCard: PropTypes.func,
 };

@@ -24,19 +24,13 @@ export function getIngredients() {
       type: GET_INGREDIENTS_REQUEST
     });
     getIngredientsRequest().then(res => {
-      if (res && res.success) {
-        dispatch({
-          type: GET_INGREDIENTS_SUCCESS,
-          data: res.data
-        });
-      } else {
-        dispatch({
-          type: GET_INGREDIENTS_FAILED
-        });
-      }
+      dispatch({
+        type: GET_INGREDIENTS_SUCCESS,
+        data: res.data
+      });
     })
     .catch(err => {
-      return Promise.reject(`Ошибка ${err.status}`);
+      console.error(`Ошибка ${err.status}`)
     });
   };
 }
@@ -47,19 +41,16 @@ export function postOrder(data) {
       type: POST_ORDER_REQUEST
     });
     postOrderRequest(data).then(res => {
-      if (res && res.success) {
-        dispatch({
-          type: GET_ORDER_SUCCESS,
-          data: res
-        });
-      } else {
-        dispatch({
-          type: GET_ORDER_FAILED
-        });
-      }
+      dispatch({
+        type: GET_ORDER_SUCCESS,
+        data: res
+      });
     })
     .catch(err => {
-      return Promise.reject(`Ошибка ${err.status}`);
+      console.error(`Ошибка ${err.status}`)
+      dispatch({
+        type: GET_INGREDIENTS_FAILED
+      });
     });
   };
 }

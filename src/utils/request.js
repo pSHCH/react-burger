@@ -1,3 +1,5 @@
+import { BASE_URL } from './consts';
+
 export const checkResponse = res => {
   if (res.ok) {
     return res.json()
@@ -5,6 +7,15 @@ export const checkResponse = res => {
   return Promise.reject(`Ошибка ${res.status}`);
 }
 
-export const request = (url, options) => {
-  return fetch(url, options).then(checkResponse)
-}
+export const checkSuccess = (res) => {
+  if (res && res.success) {
+    return res;
+  }
+  return Promise.reject(`Ответ не success: ${res}`);
+};
+
+export const request = (endpoint, options) => {
+  return fetch(`${BASE_URL}/${endpoint}`, options)
+    .then(checkResponse)
+    .then(checkSuccess);
+};

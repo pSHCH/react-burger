@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useMemo, useCallback, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import update from 'immutability-helper';
 import { useDrop } from 'react-dnd';
 import { ADD_INGREDIENTS_CART, REMOVE_BUN_INGREDIENTS_CART, UPDATE_INGREDIENTS_CART } from '../../services/actions';
@@ -47,8 +48,6 @@ function BurgerConstructor(props) {
     dispatch({ type: UPDATE_INGREDIENTS_CART, cards });
   }, [cards]);
 
-
-
   const wrapIngredient = useMemo(() => !!ingredientsInCart.length && ingredientsInCart.filter(item => item.type === 'bun'), [ingredientsInCart]);
   const innerIngredients = useMemo(() => !!ingredientsInCart.length && ingredientsInCart.filter(item => item.type !== 'bun'), [ingredientsInCart]);
 
@@ -57,19 +56,23 @@ function BurgerConstructor(props) {
   }, 0) : 0;
   
   return (
-    <>
+    <section>
       <div className={burgerConstructorStyle.burger} ref={drop}>
         {!!ingredientsInCart.length 
           ? <>
               {!!wrapIngredient.length ? <BurgerIngredient top data={wrapIngredient[0]}/> : <p className={burgerConstructorStyle.subnotification} >Добавьте булочку</p> }
               <div className={cn(burgerConstructorStyle.sectons, 'custom-scroll')}>
                 {!!innerIngredients.length 
-                  ? innerIngredients.map((item, i) => <BurgerIngredient 
-                    data={item} 
-                    key={`${item._id}${i}`} 
-                    moveCard={moveCard}
-                    index={i}
-                  />)
+                  ? innerIngredients.map((item, i) => {  
+                    const uuid = uuidv4(); 
+
+                    return <BurgerIngredient 
+                      data={item} 
+                      key={uuid} 
+                      moveCard={moveCard}
+                      index={i}
+                    />}
+                  )
                   : <p className={burgerConstructorStyle.subnotification} >Добавьте что-то ещё</p>
                 }
               </div>
@@ -79,7 +82,7 @@ function BurgerConstructor(props) {
         }
       </div>
       {(!!wrapIngredient.length && !!innerIngredients.length) && <Total total={total || 0} openModal={props.openModal}/>  }
-    </>
+    </section>
   );
 }
 

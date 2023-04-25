@@ -7,6 +7,8 @@ import { INGREDIENTS_MODAL_CLOSE } from '../../services/actions';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
+import OrderDetails from '../order-details/order-details';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 
 import appStyles from './app.module.css';
@@ -42,25 +44,23 @@ function App() {
  
   return (  
     <>
-      <main className={appStyles.main}>
+      <div className={appStyles.main}>
         <AppHeader />
-        <div className={appStyles.grid}>
+        <main className={appStyles.grid}>
           <DndProvider backend={HTML5Backend}>
-            <section>
               <BurgerIngredients openModal={openModal} />
-            </section>
-            <section>
               <BurgerConstructor openModal={openModal}/>
-            </section>
           </DndProvider>
-        </div>
-      </main>
-      <div className={appStyles.hidden}>
-        {isOpen && <Modal 
-          onClose={onClose}
-          modalType={modalType}
-        />}
+        </main>
       </div>
+      {isOpen && <Modal 
+        onClose={onClose}
+        title={modalType !== 'order' && 'Детали ингредиента'}
+      >
+        {
+          modalType === 'order' ? <OrderDetails /> : <IngredientDetails />
+        }
+      </Modal>}
     </>
   );
 }

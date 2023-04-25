@@ -22,9 +22,3 @@
 .notification {
   text-align: center;
 }
-
-.hidden {    
-  width: 0;
-  height: 0;
-  overflow: hidden;
-}
