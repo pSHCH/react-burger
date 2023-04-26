@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import { useMemo, useCallback, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import update from 'immutability-helper';
 import { useDrop } from 'react-dnd';
-import { ADD_INGREDIENTS_CART, REMOVE_BUN_INGREDIENTS_CART, UPDATE_INGREDIENTS_CART } from '../../services/actions';
+import { REMOVE_BUN_INGREDIENTS_CART, UPDATE_INGREDIENTS_CART, addToCart } from '../../services/actions';
 import cn from 'classnames';
 import BurgerIngredient from '../burger-ingredient/burger-ingredient';
 import Total from '../total/total'
@@ -27,9 +26,9 @@ function BurgerConstructor(props) {
         dispatch({ type: REMOVE_BUN_INGREDIENTS_CART });
       }
       if(item.type === 'bun' ) {
-        dispatch({ type: ADD_INGREDIENTS_CART, item }); // подкладываем вторую булку
+        dispatch(addToCart(item)); // подкладываем вторую булку
       }
-      dispatch({ type: ADD_INGREDIENTS_CART, item });
+      dispatch(addToCart(item));
     },
   });
 
@@ -63,12 +62,11 @@ function BurgerConstructor(props) {
               {!!wrapIngredient.length ? <BurgerIngredient top data={wrapIngredient[0]}/> : <p className={burgerConstructorStyle.subnotification} >Добавьте булочку</p> }
               <div className={cn(burgerConstructorStyle.sectons, 'custom-scroll')}>
                 {!!innerIngredients.length 
-                  ? innerIngredients.map((item, i) => {  
-                    const uuid = uuidv4(); 
+                  ? innerIngredients.map((item, i) => {
 
                     return <BurgerIngredient 
                       data={item} 
-                      key={uuid} 
+                      key={item.id} 
                       moveCard={moveCard}
                       index={i}
                     />}
@@ -81,7 +79,7 @@ function BurgerConstructor(props) {
           : <p className={burgerConstructorStyle.notification} >Добавьте что-нибудь из меню</p> 
         }
       </div>
-      {(!!wrapIngredient.length && !!innerIngredients.length) && <Total total={total || 0} openModal={props.openModal}/>  }
+      {(!!wrapIngredient.length && !!innerIngredients.length) && <Total total={total || 0} openModal={props.openModal} ingredientsInCart={ingredientsInCart} />  }
     </section>
   );
 }

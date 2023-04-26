@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { getIngredientsRequest, postOrderRequest } from '../api';
 
 export const GET_INGREDIENTS_REQUEST = 'GET_INGREDIENTS_REQUEST';
@@ -53,4 +54,14 @@ export function postOrder(data) {
       });
     });
   };
+}
+
+export function addToCart(data) {
+  return {
+    type: ADD_INGREDIENTS_CART,
+    payload: {
+      ...data,  
+      id: uuidv4()
+    }
+  }
 }

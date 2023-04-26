@@ -1,20 +1,16 @@
 import PropTypes from 'prop-types';
 
-export const itemType = {
-  image_large: PropTypes.string.isRequired, 
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-};
-
 export const ingredientType = {
-  image_mobile: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-};
-
-export const ingredientSectionType = {
-  _id: PropTypes.string.isRequired,
-  image_large: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
+  __v: PropTypes.number,
+  _id: PropTypes.string,
+  image: PropTypes.string, 
+  image_large: PropTypes.string, 
+  image_mobile: PropTypes.string,
+  name: PropTypes.string,
+  price: PropTypes.number,
+  calories: PropTypes.number,
+  carbohydrates: PropTypes.number,
+  fat: PropTypes.number,
+  proteins: PropTypes.number,
+  type: PropTypes.string,
 };

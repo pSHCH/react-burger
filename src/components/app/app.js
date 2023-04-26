@@ -55,7 +55,7 @@ function App() {
       </div>
       {isOpen && <Modal 
         onClose={onClose}
-        title={modalType !== 'order' && 'Детали ингредиента'}
+        title={modalType !== 'order' ? 'Детали ингредиента' : ''}
       >
         {
           modalType === 'order' ? <OrderDetails /> : <IngredientDetails />

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { INGREDIENTS_MODAL_OPEN } from '../../services/actions';
-import { itemType } from '../../utils/types';
+import { ingredientType } from '../../utils/types';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import burgerItemStyle from './burger-item.module.css';
@@ -38,7 +38,7 @@ function BurgerItem(props) {
 
 BurgerItem.propTypes = {
   openModal: PropTypes.func.isRequired,
-  item: PropTypes.shape(itemType).isRequired,
+  item: PropTypes.shape(ingredientType).isRequired,
 };
 
 export default BurgerItem;

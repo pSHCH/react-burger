@@ -126,13 +126,14 @@ const cartReducer = (state = cartInitialState, action) => {
     case GET_INGREDIENTS_CART: {
       return {
         ...state,
-        ingredientsInCart: state.ingredientsInCart
+        ingredientsInCart: [...state.ingredientsInCart]
       };
     }
     case ADD_INGREDIENTS_CART: {
       const bunArr = [...state.ingredientsInCart].filter(item => item.type === 'bun');
       const otherArr = [...state.ingredientsInCart].filter(item => item.type !== 'bun');
-      const totalArr = otherArr.concat(action.item).concat(bunArr);
+      const totalArr = otherArr.concat({...action.item, ...action.payload}).concat(bunArr);
+
       return {
         ...state,
         ingredientsInCart: totalArr

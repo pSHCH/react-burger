@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { useMemo } from 'react';
-import { ingredientSectionType } from '../../utils/types';
+import { ingredientType } from '../../utils/types';
 import BurgerItem from '../burger-item/burger-item';
 import burgerSectionStyle from './burger-section.module.css';
 
@@ -26,7 +26,7 @@ function BurgerSection(props) {
 BurgerSection.propTypes = {
   openModal: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf(PropTypes.shape(ingredientSectionType)).isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape(ingredientType)).isRequired,
   refElem: PropTypes.func.isRequired
 };
 

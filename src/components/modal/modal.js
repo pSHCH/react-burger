@@ -30,7 +30,7 @@ function Modal(props) {
       <>
         <div className={modalStyle.wrap}>
           <header className={modalStyle.header}>
-            { !!props.title && <h4 className={modalStyle.title}>{props.title}</h4> }
+            { props.title !=='' && <h4 className={modalStyle.title}>{props.title}</h4> }
             <button className={modalStyle.button} onClick={props.onClose}>
               <CloseIcon type='primary' />
             </button>
