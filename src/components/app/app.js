@@ -1,83 +1,66 @@
-import React, { useState, useEffect } from 'react';
-
-import { DATAURL } from '../../utils/consts';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import { DndProvider } from 'react-dnd';
+import { INGREDIENTS_MODAL_CLOSE } from '../../services/actions';
 
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
+import OrderDetails from '../order-details/order-details';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 
 import appStyles from './app.module.css';
 
 function App() {
-  const [state, setState] = useState({ 
-    loading: true,
-    error: false,
-    data: [],
-  });
+  const { ingredientsRequest, ingredientsFailed, ingredients } = useSelector(store => store.ingredients);
+  const dispatch = useDispatch();
+
   const [isOpen, setIsOpen] = useState(false);
-  const [itemData, setItemData] = useState(null);
   const [modalType, setModalType] = useState('');
-  
-  const getData = async (url) => {
-    setState({ ...state, error: false, loading: true });
-    try {
-      const res = await fetch(url);
-      const data = res.ok ? await res.json() : await res.json().then((err) => Promise.reject(err));
-      setState({ ...state, data, loading: false })
-    } catch (err) { 
-      setState({ ...state, error: true, loading: false });
-    }
-  };
-  
-  useEffect(() => {
-    getData(DATAURL);
-  }, []);
 
-  const { data, loading, error } = state;
-
-  if(error) {
+  if(ingredientsFailed && !!ingredients.length) {
     return (
       <p className={appStyles.notification}>Что-то пошло не так</p>
     );
   }
 
-  if(loading) {
+  if(ingredientsRequest && !!ingredients.length) {
     return (
       <p className={appStyles.notification}>Загрузка...</p>
     );
   }
 
-  const openModal = (type, item) => {
+  const openModal = (type) => {
     setIsOpen(true);
-    setItemData(item);
     setModalType(type);
   }
 
   const onClose = () => {
     setIsOpen(false);
+    dispatch({ type: INGREDIENTS_MODAL_CLOSE, ingredient: null })
   }
  
   return (  
     <>
-      <main className={appStyles.main}>
+      <div className={appStyles.main}>
         <AppHeader />
-        <div className={appStyles.grid}>
-          <section>
-            <BurgerIngredients data={data?.data} openModal={openModal}/>
-          </section>
-          <section>
-            <BurgerConstructor data={data?.data} openModal={openModal}/>
-          </section>
-        </div>
-      </main>
-      <div className={appStyles.hidden}>
-        {isOpen && <Modal 
-          onClose={onClose} 
-          itemData={itemData} 
-          modalType={modalType}
-        />}
+        <main className={appStyles.grid}>
+          <DndProvider backend={HTML5Backend}>
+              <BurgerIngredients openModal={openModal} />
+              <BurgerConstructor openModal={openModal}/>
+          </DndProvider>
+        </main>
       </div>
+      {isOpen && <Modal 
+        onClose={onClose}
+        title={modalType !== 'order' ? 'Детали ингредиента' : ''}
+      >
+        {
+          modalType === 'order' ? <OrderDetails /> : <IngredientDetails />
+        }
+      </Modal>}
     </>
   );
 }

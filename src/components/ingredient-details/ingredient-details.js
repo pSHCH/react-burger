@@ -1,45 +1,34 @@
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import ingredientDetailsStyle from './ingredient-details.module.css';
 
+function IngredientDetails() {
+  const { ingredient } = useSelector(store => store.ingredient);
 
-function IngredientDetails(props) {
   return ( 
     <div className={ingredientDetailsStyle.wrap}>
-      <img src={props.item.image_large} alt={props.item.name} className={ingredientDetailsStyle.image} />
-      <h3 className={ingredientDetailsStyle.title}>{props.item.name}</h3>
+      <img src={ingredient?.image_large} alt={ingredient?.name} className={ingredientDetailsStyle.image} />
+      <h3 className={ingredientDetailsStyle.title}>{ingredient?.name}</h3>
       <div className={ingredientDetailsStyle.details}>
         <div>
           <p className={ingredientDetailsStyle.name}>Калории,ккал</p>
-          <p className={ingredientDetailsStyle.count}>{props.item.calories}</p>
+          <p className={ingredientDetailsStyle.count}>{ingredient?.calories}</p>
         </div>
         <div>
           <p className={ingredientDetailsStyle.name}>Белки, г</p>
-          <p className={ingredientDetailsStyle.count}>{props.item.proteins}</p>
+          <p className={ingredientDetailsStyle.count}>{ingredient?.proteins}</p>
         </div>
         <div>
           <p className={ingredientDetailsStyle.name}>Жиры, г</p>
-          <p className={ingredientDetailsStyle.count}>{props.item.fat}</p>
+          <p className={ingredientDetailsStyle.count}>{ingredient?.fat}</p>
         </div>
         <div>
           <p className={ingredientDetailsStyle.name}>Углеводы, г</p>
-          <p className={ingredientDetailsStyle.count}>{props.item.carbohydrates}</p>
+          <p className={ingredientDetailsStyle.count}>{ingredient?.carbohydrates}</p>
         </div>
       </div>
     </div>
   );
 }
-
-IngredientDetails.propTypes = {
-  item: PropTypes.shape({
-    image_large: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    calories: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    proteins: PropTypes.number.isRequired,
-  }).isRequired,  
-
-};
 
 export default IngredientDetails;
