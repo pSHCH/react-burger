@@ -1,0 +1,45 @@
+.grid {
+  padding: 120px var(--x5) 0;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 320px 480px;
+  grid-template-rows: 1fr;
+  grid-column-gap: var(--x15);
+  grid-row-gap: 0px;
+}
+
+.info {
+  font-family: 'Jet Brains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--text-secondary);
+  margin-top: var(--x20);
+}
+
+.link {
+  display: inline-block;
+  font-family: 'Jet Brains Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  color: var(--text-secondary);
+  padding: var(--x4) 0;
+  text-decoration: none;
+}
+
+.active {
+  color: var(--text);
+}
+
+.input {
+  margin-bottom: var(--x6);
+}
+
+.input:last-child {
+  margin-bottom: 0;
+}

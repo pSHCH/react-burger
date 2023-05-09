@@ -1,11 +1,3 @@
-.main {
-  background-color: var(--bg);
-  min-height: 100vh;
-  min-width: 1280px;
-  box-sizing: border-box;
-  font-family: 'Jet Brains Mono'; 
-}
-
 .grid {
   padding: 0 var(--x5);
   display: grid;

@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux';
 import { 
     GET_INGREDIENTS_REQUEST, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED,
-    GET_INGREDIENTS_CART, ADD_INGREDIENTS_CART, REMOVE_INGREDIENTS_CART, REMOVE_BUN_INGREDIENTS_CART, UPDATE_INGREDIENTS_CART,
+    GET_INGREDIENTS_CART, ADD_INGREDIENTS_CART, REMOVE_INGREDIENTS_CART, REMOVE_BUN_INGREDIENTS_CART, UPDATE_INGREDIENTS_CART, REMOVE_INGREDIENTS_ALL_CART,
     INGREDIENTS_MODAL_OPEN, INGREDIENTS_MODAL_CLOSE,
     POST_ORDER_REQUEST, GET_ORDER_SUCCESS, GET_ORDER_FAILED,
+    GET_USER_REQUEST, GET_USER_SUCCESS, GET_USER_FAILED,
     SET_TAB_ACTIVE,
 } from '../actions';
 
@@ -29,6 +30,44 @@ const orderInitialState = {
 const tabState = {
   tab: 'bun',
 };
+
+const userInitialState = {
+  email: '',
+  name: '',
+  loadState: ''
+}
+
+const userReducer = (state = userInitialState, action) => {
+  switch (action.type) {
+    case GET_USER_REQUEST: {
+      return {
+        ...state,
+        email: '',
+        name: '',
+        loadState: 'loading'
+      };
+    }
+    case GET_USER_SUCCESS: {
+      return {
+        ...state,
+        email: action.data.user.email,
+        name: action.data.user.name,
+        loadState: 'succes'
+      };
+    }
+    case GET_USER_FAILED: {
+      return {
+        ...state,
+        email: '',
+        name: '',
+        loadState: 'failed'
+      };
+    }
+    default: {
+      return state;
+    }
+  }
+}
 
 const tabReducer = (state = tabState, action) => {
   switch (action.type) {
@@ -150,6 +189,12 @@ const cartReducer = (state = cartInitialState, action) => {
         ingredientsInCart: arr
       };
     }
+    case REMOVE_INGREDIENTS_ALL_CART: {
+      return {
+        ...state,
+        ingredientsInCart: []
+      };
+    }
     case REMOVE_BUN_INGREDIENTS_CART: {
       return {
         ...state,
@@ -174,4 +219,5 @@ export const rootReducer = combineReducers({
   cart: cartReducer,
   order: orderReducer,
   tab: tabReducer,
+  user: userReducer,
 });

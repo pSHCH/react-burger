@@ -4,7 +4,6 @@ import { useMemo, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { SET_TAB_ACTIVE } from '../../services/actions';
 import { useInView } from 'react-intersection-observer';
-import { getIngredients } from '../../services/actions';
 import BurgerSection from '../burger-section/burger-section';
 import Tabs from '../tabs/tabs';
 
@@ -13,10 +12,6 @@ import burgerIngredientsStyle from './burger-ingredients.module.css';
 function BurgerIngredients(props) {
   const dispatch = useDispatch(); 
   const { ingredients } = useSelector(store => store.ingredients);
-
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
 
   const [bunRef, inViewBuns] = useInView({
     threshold: 0,

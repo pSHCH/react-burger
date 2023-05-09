@@ -1,9 +1,10 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';  
 import { compose, createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './components/app/app';
+import App from './app';
 import { rootReducer } from './services/reducers';
 import reportWebVitals from './reportWebVitals';
 import thunk from 'redux-thunk';
@@ -20,7 +21,9 @@ const root = ReactDOM.createRoot(document.querySelector('#root'));
 
 root.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>
 );
 
