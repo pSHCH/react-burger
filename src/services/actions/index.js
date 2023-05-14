@@ -9,6 +9,7 @@ import {
   resetRequest,
   logoutRequest,
   userRequest,
+  updateUserRequest,
   checkToken,
 } from '../api';
 import { deleteCookie, setCookie } from '../../utils/cookie';
@@ -52,10 +53,13 @@ export const POST_RESET_REQUEST = 'POST_RESET_REQUEST';
 export const POST_RESET_SUCCESS = 'POST_RESET_SUCCESS';
 export const POST_RESET_FAILED = 'POST_RESET_FAILED';
 
-
 export const GET_USER_REQUEST = 'GET_USER_REQUEST';
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
 export const GET_USER_FAILED = 'GET_USER_FAILED';
+
+export const PATCH_USER_REQUEST = 'PATCH_USER_REQUEST';
+export const PATCH_USER_SUCCESS = 'PATCH_USER_SUCCESS';
+export const PATCH_USER_FAILED = 'PATCH_USER_FAILED';
 
 export const POST_TOKEN_REQUEST = 'GET_USER_REQUEST';
 export const POST_TOKEN_SUCCESS = 'GET_USER_SUCCESS';
@@ -116,7 +120,7 @@ export function register(data) {
     registerRequest(data).then(res => {
       const token = res.accessToken.split('Bearer ')[1];
       if (token) {
-        setCookie('token', token);
+        setCookie('token', token, { path: '/' });
       }
       dispatch({
         type: POST_REGISTER_SUCCESS,
@@ -139,10 +143,10 @@ export function login(data) {
     });
     loginRequest(data).then(res => {
       if (res.accessToken) {
-        setCookie('token', res.accessToken, { expires: 1200 });
+        setCookie('token', res.accessToken, { expires: 1200 }, { path: '/' }, { path: '/' });
       }
       if (res.refreshToken) {
-        setCookie('refreshToken', res.refreshToken);
+        setCookie('refreshToken', res.refreshToken, { path: '/' });
       }
 
       dispatch({
@@ -165,9 +169,10 @@ export function logout(data) {
       type: POST_LOGOUT_REQUEST
     });
     logoutRequest(data).then(res => {
-      deleteCookie('token');
-      deleteCookie('refreshToken');
-      deleteCookie('order');
+      deleteCookie('token', { path: '/' });
+      deleteCookie('refreshToken', { path: '/' });
+      deleteCookie('order', { path: '/' });
+      dispatch({ type: POST_LOGIN_FAILED });
       
       dispatch({
         type: POST_LOGOUT_SUCCESS,
@@ -189,7 +194,6 @@ export function forgot(data) {
       type: POST_FORGOT_REQUEST
     });
     forgotRequest(data).then(res => {
-      setCookie('forgot', '1', { expires: 12000 });
       dispatch({
         type: POST_FORGOT_SUCCESS,
         data: res
@@ -244,6 +248,27 @@ export function getUser(data) {
   }
 };
 
+export function updateUser(data) {
+  return function(dispatch) {
+    dispatch({
+      type: PATCH_USER_REQUEST
+    });
+    updateUserRequest(data).then(res => {
+      dispatch({
+        type: PATCH_USER_SUCCESS,
+        data: res
+      });
+    })
+    .catch(err => {
+      console.log(err)
+      console.error(`${err}`)
+      dispatch({
+        type: PATCH_USER_FAILED
+      });
+    });
+  }
+};
+
 export function checkUserToken(data) {
   return function(dispatch) {
     dispatch({
@@ -251,10 +276,10 @@ export function checkUserToken(data) {
     });
     checkToken(data).then(res => {
       if (res.accessToken) {
-        setCookie('token', res.accessToken, { expires: 1200 });
+        setCookie('token', res.accessToken, { expires: 1200 }, { path: '/' });
       }
       if (res.refreshToken) {
-        setCookie('refreshToken', res.refreshToken);
+        setCookie('refreshToken', res.refreshToken, { path: '/' });
       }
         
       dispatch({

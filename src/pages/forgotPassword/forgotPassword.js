@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { forgot } from '../../services/actions';
 import Template from '../../components/template/template';
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -11,6 +11,7 @@ import forgotPasswordStyles from './forgotPassword.module.css';
 export function ForgotPasswordPage() {  
   const dispatch = useDispatch(); 
   const navigate = useNavigate();
+  const forgotState = useSelector(store => store.forgot.state);
 
   const [email, setEmail] = useState('');
 
@@ -28,9 +29,14 @@ export function ForgotPasswordPage() {
       'email': email
     } 
 
-    dispatch(forgot(data));
-    navigate('/reset-password');
+    dispatch(forgot(data));  
   }
+
+  useEffect(() => {
+    if (forgotState === 'success') {
+      navigate('/reset-password');
+    }
+  }, [dispatch, forgotState])
 
   return (
     <Template>

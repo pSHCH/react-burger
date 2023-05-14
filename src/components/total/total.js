@@ -14,7 +14,10 @@ function Total(props) {
 
   const dispatch = useDispatch();
   const ingredients = useSelector(store => store.cart.ingredientsInCart);
+  // const { login } = useSelector(store => store.login);
   const isToken = getCookie('token');
+
+
 
   const addOrder = async () => {
     let data;
@@ -36,13 +39,13 @@ function Total(props) {
     data = {'ingredients': ids};
     
     if (isToken) {
-      deleteCookie('order')
+      deleteCookie('order', { path: '/' })
       dispatch(postOrder(data));
       props.openModal('order');
       dispatch({ type: REMOVE_INGREDIENTS_ALL_CART });
 
     } else {
-      setCookie('order', ids)
+      setCookie('order', ids, { path: '/' })
       navigate('/login');
     }
   }

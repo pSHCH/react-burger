@@ -1,18 +1,24 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUser } from '../../services/actions';
+import PropTypes from 'prop-types';
+
 
 export const ProtectedRoutePasswordResetElement = ({element}) => {
-  let forgot = getCookie('forgot');
+  const forgot = useSelector(store => store.forgot.state);
 
-  if (!forgot) {
+  if (forgot !== 'success') {
     return <Navigate to='/forgot-password' />;
   }
 
   return element;
 }
+
+ProtectedRoutePasswordResetElement.propTypes = { 
+  element: PropTypes.object.isRequired
+};
 
 export const ProtectedRouteLoginElement = ({element}) => {
   const dispatch = useDispatch(); 
@@ -34,8 +40,13 @@ export const ProtectedRouteLoginElement = ({element}) => {
   return element;
 }
 
+ProtectedRouteLoginElement.propTypes = { 
+  element: PropTypes.object.isRequired
+};
+
 export const ProtectedRouteElement = ({ element }) => {
   const dispatch = useDispatch(); 
+  let location = useLocation();
 
   let user = useSelector(store => store.user);
   const isToken = getCookie('token');
@@ -50,7 +61,7 @@ export const ProtectedRouteElement = ({ element }) => {
   }, [dispatch, isToken]);
 
   if (!isToken || failed) {
-    return <Navigate to='/login' />;
+    return <Navigate to='/login' state={{from: location}} replace/>;
   }
 
   if (loading || noUser) {
@@ -59,3 +70,7 @@ export const ProtectedRouteElement = ({ element }) => {
 
   return element;
 }
+
+ProtectedRouteElement.propTypes = { 
+  element: PropTypes.object.isRequired
+};

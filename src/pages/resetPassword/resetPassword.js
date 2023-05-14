@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { reset } from '../../services/actions';
 import Template from '../../components/template/template';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -11,6 +11,7 @@ import resetPasswordStyles from './resetPassword.module.css';
 export function ResetPasswordPage() {  
   const dispatch = useDispatch(); 
   const navigate = useNavigate();
+  const resetState = useSelector(store => store.reset.state);
 
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');;
@@ -33,8 +34,13 @@ export function ResetPasswordPage() {
     } 
 
     dispatch(reset(data));
-    navigate('/login');
   }
+
+  useEffect(() => {
+    if (resetState === 'success') {
+      navigate('/');
+    }
+  }, [dispatch, resetState])
   
   return (
     <Template>

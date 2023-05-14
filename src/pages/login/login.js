@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login, checkUserToken } from '../../services/actions';
 import Template from '../../components/template/template';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
 
 import loginStyles from './login.module.css';
@@ -12,6 +12,8 @@ import loginStyles from './login.module.css';
 export function LoginPage() {
   const dispatch = useDispatch(); 
   const navigate = useNavigate();
+  let location = useLocation();
+  const loginState = useSelector(store => store.login.login);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,6 +27,19 @@ export function LoginPage() {
       dispatch(checkUserToken(token));
     }
   }, [dispatch]);
+
+  useEffect(() => {
+    if(loginState) {
+
+      if(location.state?.from) {
+        navigate(location.state?.from);
+      }
+      else {
+        navigate('/');
+      }
+      
+    }
+  }, [dispatch, loginState])
 
   const handleChangeField = e => {
     const {name, value} = e.target;
@@ -44,7 +59,6 @@ export function LoginPage() {
     } 
 
     dispatch(login(data));
-    navigate('/');
   }
 
   return (

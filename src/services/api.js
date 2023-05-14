@@ -92,6 +92,17 @@ export const userRequest = () => {
   })
 }
 
+export const updateUserRequest = (data) => {
+  return request(`auth/user`, {
+    method: 'PATCH', 
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: getCookie('token')
+    },
+    body: JSON.stringify(data),
+  })
+}
+
 export const checkToken = (data) => {
   return request(`auth/token`, {
     method: 'POST',

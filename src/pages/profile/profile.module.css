@@ -43,3 +43,10 @@
 .input:last-child {
   margin-bottom: 0;
 }
+
+.buttons {
+  display: flex;
+  min-width: 100%;
+  justify-content: flex-end;
+  gap: var(--x5);
+}
