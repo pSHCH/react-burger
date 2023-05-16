@@ -3,7 +3,7 @@ import Template from '../../components/template/template';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { logout, updateUser, getUser } from '../../services/actions';
+import { logout, updateUser } from '../../services/actions';
 import { getCookie } from '../../utils/cookie';
 
 import profileStyles from './profile.module.css';
@@ -11,9 +11,11 @@ import profileStyles from './profile.module.css';
 export function ProfilePage() {
   const [isEditName, setIsEditName] = useState(false);
   const [isEditEmail, setIsEditEmail] = useState(false);
+  const [isEditPassword, setIsEditPassword] = useState(false);
 
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
+  const [password, setPassword] = useState('');
 
   const dispatch = useDispatch(); 
   let user = useSelector(store => store.user);
@@ -36,29 +38,27 @@ export function ProfilePage() {
     setIsEditEmail(true);
   };
 
-  const handleChangeField = e => {
-    const {name, value} = e.target;
-    if (name === 'email') {
-      setEmail(value);
-    } else if (name === 'name') {
-      setName(value);
-    }
-  }
+  const editPassword = () => {
+    setIsEditPassword(true);
+  };
 
   const resetFields = () => {
     setIsEditName(false);
     setIsEditEmail(false);
+    setIsEditPassword(false);
 
     setEmail('');
     setName('');
+    setPassword('');
   }
 
   const updateUserInfo = () => {
-    if(name !== '' || name !== '') {
+    if(name !== '' || name !== '' || password !== '') {
       const data = {
-        'email': email || user?.email, 
-        'name': name || user?.name,
-      } 
+       ...( email !== '' && {'email': email }), 
+       ...( name !== '' && {'name': name }), 
+       ...( password !== '' && {'password': password })
+      }
 
       dispatch(updateUser(data));
     }
@@ -68,15 +68,13 @@ export function ProfilePage() {
     if(updateUserData.loadState === 'succes') {
       setIsEditName(false);
       setIsEditEmail(false);
+      setIsEditPassword(false);
 
       setEmail(updateUserData.email);
       setName(updateUserData.name);
-
-      // dispatch(getUser());
+      setPassword('');
     }
-
-    // dispatch(getUser());
-  }, [updateUserData])
+  }, [updateUserData]);
   
   return (
     <Template>
@@ -103,30 +101,32 @@ export function ProfilePage() {
               name='name'
               disabled={!isEditName}
               icon='EditIcon'
-              value={name !== '' ? name : user?.name}
+              value={name !== '' || isEditName ? name : user?.name}
               extraClass={profileStyles.input}
               onIconClick={() => editName()}
-              onChange={handleChangeField}
+              onChange={e => setName(e.target.value)}
             />
             <Input 
               placeholder='Логин'
               name='email'
               disabled={!isEditEmail}
               icon='EditIcon'
-              value={email !== '' ? email : user?.email}
+              value={email !== '' || isEditEmail ? email : user?.email}
               extraClass={profileStyles.input}
               onIconClick={() => editEmail()}
-              onChange={handleChangeField}
+              onChange={e => setEmail(e.target.value)}
             />
             <Input 
               placeholder='Пароль'
               name='password'
-              disabled
+              disabled={!isEditPassword}
               icon='EditIcon'
-              value={'******'}
+              value={password !== '' || isEditPassword ? password : '******'}
+              onIconClick={() => editPassword()}
+              onChange={e => setPassword(e.target.value)}
               extraClass={profileStyles.input}
             />
-            {(isEditName || isEditEmail) && <div className={profileStyles.buttons}>
+            {(isEditName || isEditEmail || isEditPassword) && <div className={profileStyles.buttons}>
               <Button type='secondary' htmlType='button' onClick={() => resetFields()}>Отмена</Button>
               <Button htmlType='button' onClick={() => updateUserInfo()}>Сохранить</Button>
             </div>}

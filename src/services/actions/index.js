@@ -96,7 +96,7 @@ export function postOrder(data) {
     .catch(err => {
       console.error(`Ошибка ${err.status}`)
       dispatch({
-        type: GET_INGREDIENTS_FAILED
+        type: GET_ORDER_FAILED
       });
     });
   };

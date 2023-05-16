@@ -1,12 +1,60 @@
 import { request } from '../utils/request';
-import { getCookie } from '../utils/cookie';
+import { getCookie, setCookie } from '../utils/cookie';
+import { BASE_URL } from '../utils/consts'
+
+
+const checkReponse = (res) => {
+  return res.ok ? 
+    res.json() 
+    : res.json().then((err) => Promise.reject(err));
+};
+
+const tokenRequest = () => {
+  return request(`auth/token`, {
+    method: 'POST', 
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      token: getCookie('refreshToken')
+    }),
+  })
+}
+
+const fetchWithRefresh = async (url, options) => {
+  
+  try {
+    const res = await fetch(`${BASE_URL}/${url}`, options);
+
+    return await checkReponse(res);
+  } catch (err) {
+    if (getCookie('token') === undefined) {
+
+      const refreshData = await tokenRequest();
+
+      if (refreshData.accessToken) {
+        setCookie('token', refreshData.accessToken, { expires: 1200 }, { path: '/' });
+      }
+      if (refreshData.refreshToken) {
+        setCookie('refreshToken', refreshData.refreshToken, { path: '/' });
+      }
+      
+      options.headers.Authorization = refreshData.accessToken;
+      const res = await fetch(`${BASE_URL}/${url}`, options);
+      return await checkReponse(res);
+    } else {
+      return Promise.reject(err);
+    }
+  }
+};
 
 export const getIngredientsRequest = () => {
   return request('ingredients', {})
 };
 
 export const postOrderRequest = (data) => {
-  return request('orders', {
+  return fetchWithRefresh('orders', {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -49,9 +97,9 @@ export const logoutRequest = (data) => {
   })
 }
 
-export const tokenRequest = (data) => {
+export const checkToken = (data) => {
   return request(`auth/token`, {
-    method: 'POST', 
+    method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -93,7 +141,7 @@ export const userRequest = () => {
 }
 
 export const updateUserRequest = (data) => {
-  return request(`auth/user`, {
+  return fetchWithRefresh(`auth/user`, {
     method: 'PATCH', 
     headers: {
       'Content-Type': 'application/json',
@@ -103,13 +151,3 @@ export const updateUserRequest = (data) => {
   })
 }
 
-export const checkToken = (data) => {
-  return request(`auth/token`, {
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  })
-}

@@ -14,10 +14,8 @@ function Total(props) {
 
   const dispatch = useDispatch();
   const ingredients = useSelector(store => store.cart.ingredientsInCart);
-  // const { login } = useSelector(store => store.login);
   const isToken = getCookie('token');
-
-
+  const isRefreshToken = getCookie('refreshToken');
 
   const addOrder = async () => {
     let data;
@@ -47,6 +45,7 @@ function Total(props) {
     } else {
       setCookie('order', ids, { path: '/' })
       navigate('/login');
+      
     }
   }
 

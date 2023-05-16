@@ -45,6 +45,7 @@ const userInitialState = {
 const updateUserInitialState = {
   email: '',
   name: '',
+  password: '',
   loadState: ''
 }
 
@@ -103,6 +104,7 @@ const updateUserReducer = (state = updateUserInitialState, action) => {
         ...state,
         email: '',
         name: '',
+        password: '',
         loadState: 'loading'
       };
     }
@@ -111,6 +113,7 @@ const updateUserReducer = (state = updateUserInitialState, action) => {
         ...state,
         email: action.data.user.email,
         name: action.data.user.name,
+        password: action.data.user.password,
         loadState: 'succes'
       };
     }
@@ -119,6 +122,7 @@ const updateUserReducer = (state = updateUserInitialState, action) => {
         ...state,
         email: '',
         name: '',
+        password: '',
         loadState: 'failed'
       };
     }

@@ -37,25 +37,15 @@ export function LoginPage() {
       else {
         navigate('/');
       }
-      
     }
-  }, [dispatch, loginState])
-
-  const handleChangeField = e => {
-    const {name, value} = e.target;
-    if (name === 'email') {
-      setEmail(value);
-    } else if (name === 'password') {
-      setPassword(value);
-    }
-  }
+  }, [dispatch, location.state?.from, loginState, navigate])
 
   const handleLogin = e => {
     e.preventDefault();
 
     const data = {
-      'email': email, 
-      'password': password
+      ...(email && {'email': email}), 
+      ...(password && {'password': password})
     } 
 
     dispatch(login(data));
@@ -71,9 +61,9 @@ export function LoginPage() {
             placeholder='E-mail' 
             name='email' 
             extraClass={loginStyles.input}
-            required  
+            required
             value={email}
-            onChange={handleChangeField}
+            onChange={e => setEmail(e.target.value)}
           />
           <PasswordInput 
             placeholder='Password' 
@@ -81,7 +71,7 @@ export function LoginPage() {
             extraClass={loginStyles.input}
             required  
             value={password}
-            onChange={handleChangeField}
+            onChange={e => setPassword(e.target.value)}
           />
           <Button 
             type='primary' 
