@@ -29,12 +29,13 @@ const fetchWithRefresh = async (url, options) => {
 
     return await checkReponse(res);
   } catch (err) {
-    if (getCookie('token') === undefined) {
+    if (err.message === 'jwt expired') {
 
       const refreshData = await tokenRequest();
 
       if (refreshData.accessToken) {
-        setCookie('token', refreshData.accessToken, { expires: 1200 }, { path: '/' });
+        setCookie(
+          'token', refreshData.accessToken, { path: '/' });
       }
       if (refreshData.refreshToken) {
         setCookie('refreshToken', refreshData.refreshToken, { path: '/' });
@@ -131,7 +132,7 @@ export const resetRequest = (data) => {
 }
 
 export const userRequest = () => {
-  return request(`auth/user`, {
+  return fetchWithRefresh(`auth/user`, {
     method: 'GET', 
     headers: {
       'Content-Type': 'application/json',

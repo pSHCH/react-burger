@@ -143,7 +143,7 @@ export function login(data) {
     });
     loginRequest(data).then(res => {
       if (res.accessToken) {
-        setCookie('token', res.accessToken, { expires: 1200 }, { path: '/' }, { path: '/' });
+        setCookie('token', res.accessToken, { path: '/' }, { path: '/' });
       }
       if (res.refreshToken) {
         setCookie('refreshToken', res.refreshToken, { path: '/' });
@@ -260,7 +260,6 @@ export function updateUser(data) {
       });
     })
     .catch(err => {
-      console.log(err)
       console.error(`${err}`)
       dispatch({
         type: PATCH_USER_FAILED
@@ -276,7 +275,7 @@ export function checkUserToken(data) {
     });
     checkToken(data).then(res => {
       if (res.accessToken) {
-        setCookie('token', res.accessToken, { expires: 1200 }, { path: '/' });
+        setCookie('token', res.accessToken, { path: '/' });
       }
       if (res.refreshToken) {
         setCookie('refreshToken', res.refreshToken, { path: '/' });
