@@ -1,9 +1,15 @@
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import ingredientDetailsStyle from './ingredient-details.module.css';
 
-function IngredientDetails() {
-  const { ingredient } = useSelector(store => store.ingredient);
+function IngredientDetails({ id }) {
+  const { ingredients } = useSelector(store => store.ingredients);
+  const ingredient = ingredients.find(({ _id }) => _id === id)
+
+  if (!ingredient) {
+    return <h3 className={ingredientDetailsStyle.title}>Такого ингридиента нет</h3>
+  }
 
   return ( 
     <div className={ingredientDetailsStyle.wrap}>
@@ -30,5 +36,9 @@ function IngredientDetails() {
     </div>
   );
 }
+
+IngredientDetails.propTypes = {
+  id: PropTypes.string,
+};
 
 export default IngredientDetails;

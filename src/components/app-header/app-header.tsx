@@ -1,6 +1,5 @@
-import { Logo } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import MenuItem from '../menu-item/menu-item';
-
 import headerStyles from './app-header.module.css';
 
 function AppHeader() {
@@ -9,14 +8,14 @@ function AppHeader() {
     <header className={headerStyles.header}>
       <nav className={headerStyles.navigation}>
         <ul className={headerStyles.grid}>
-
+          
           <li className={headerStyles.col}>
             <ul className={headerStyles.menu}>
               <li className={headerStyles.item}>
-                <MenuItem link='/' title='Конструктор' icon ='list' active/>
+                <MenuItem link='/' title='Конструктор' icon ='list'/>
               </li>
               <li className={headerStyles.item}>
-                <MenuItem link='/' title='Лента заказов' />
+                <MenuItem link='/orders' title='Лента заказов' />
               </li>
             </ul>
           </li>
@@ -26,7 +25,7 @@ function AppHeader() {
           </li>
 
           <li className={headerStyles.col}>
-            <MenuItem link='/' title='Личный кабинет' icon ='profile' />
+            <MenuItem link='/profile' title='Личный кабинет' icon ='profile' />
           </li>
         </ul>
       </nav>

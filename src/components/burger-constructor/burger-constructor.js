@@ -6,18 +6,33 @@ import { useDrop } from 'react-dnd';
 import { REMOVE_BUN_INGREDIENTS_CART, UPDATE_INGREDIENTS_CART, addToCart } from '../../services/actions';
 import cn from 'classnames';
 import BurgerIngredient from '../burger-ingredient/burger-ingredient';
-import Total from '../total/total'
+import Total from '../total/total';
+import { getCookie } from '../../utils/cookie';
 
 import burgerConstructorStyle from './burger-constructor.module.css';
 
 function BurgerConstructor(props) {
   const dispatch = useDispatch(); 
   const ingredientsInCart = useSelector(store => store.cart.ingredientsInCart);
+  const { ingredients } = useSelector(store => store.ingredients);
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    setCards(ingredientsInCart)
-  }, [ingredientsInCart]);
+    if(getCookie('order') && ingredients.length > 0) {
+      const orderArr = getCookie('order').split(',');
+      let order = [];
+
+      orderArr.forEach(item => {
+        order.push(ingredients.filter(elem => elem._id === item)[0])
+      });
+
+      setCards(order)
+
+    } else {
+      setCards(ingredientsInCart) 
+    }
+    
+  }, [ingredients]);
 
   const [, drop] = useDrop({
     accept: 'item',
@@ -28,7 +43,7 @@ function BurgerConstructor(props) {
       if(item.type === 'bun' ) {
         dispatch(addToCart(item)); // подкладываем вторую булку
       }
-      dispatch(addToCart(item));
+      dispatch(addToCart(item));  
     },
   });
 
@@ -66,7 +81,7 @@ function BurgerConstructor(props) {
 
                     return <BurgerIngredient 
                       data={item} 
-                      key={item.id} 
+                      key={item._id} 
                       moveCard={moveCard}
                       index={i}
                     />}
