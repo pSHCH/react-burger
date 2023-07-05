@@ -1,8 +1,9 @@
+import React from 'react';
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import MenuItem from '../menu-item/menu-item';
 import headerStyles from './app-header.module.css';
 
-function AppHeader() {
+const AppHeader: React.FC = () => {
 
   return (
     <header className={headerStyles.header}>
