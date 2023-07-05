@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { reset } from '../../services/actions';
@@ -17,7 +17,7 @@ export function ResetPasswordPage() {
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');;
 
-  const handleChangeField = (e: { target: { name: string; value: string; }; }) => {
+  const handleChangeField = (e: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
     if (name === 'code') {
       setCode(value);
@@ -26,7 +26,7 @@ export function ResetPasswordPage() {
     }
   }
 
-  const handleRegister = (e: { preventDefault: () => void; }) => {
+  const handleRegister = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const data = {

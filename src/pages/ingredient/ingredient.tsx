@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIngredients, INGREDIENTS_MODAL_OPEN } from '../../services/actions';
+import { INGREDIENTS_MODAL_OPEN } from '../../services/actions';
 import type { ReduxState } from '../../utils/ReduxState';
 import IngredientDetails from '../../components/ingredient-details/ingredient-details';
 import Template from '../../components/template/template';
@@ -17,10 +17,6 @@ export const IngredientPage = ({ itemId }: IIngredientPage) => {
   const dispatch: any = useDispatch();
   const { ingredients } = useSelector((store: ReduxState) => store.ingredients);
   const itemIndicator = itemId || id;
-
-  useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
 
   useEffect(() => {
     if(ingredients.length > 0) {

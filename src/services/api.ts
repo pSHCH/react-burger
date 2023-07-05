@@ -1,13 +1,5 @@
 import { request } from '../utils/request';
 import { getCookie, setCookie } from '../utils/cookie';
-import { BASE_URL } from '../utils/consts'
-
-
-const checkReponse = (res: Response) => {
-  return res.ok ? 
-    res.json() 
-    : res.json().then((err) => Promise.reject(err));
-};
 
 const tokenRequest = () => {
   return request(`auth/token`, {
@@ -23,11 +15,8 @@ const tokenRequest = () => {
 }
 
 const fetchWithRefresh = async (url: string, options?: RequestInit) => {
-  
   try {
-    const res = await fetch(`${BASE_URL}/${url}`, options);
-
-    return await checkReponse(res);
+    return request(`${url}`, options);
   } catch (err) {
     if ((err as Error).message === 'jwt expired') {
 
@@ -44,9 +33,8 @@ const fetchWithRefresh = async (url: string, options?: RequestInit) => {
       if (! options) options = {};
       options.headers = new Headers(options.headers);
       options.headers.set('authorization', String(refreshData.accessToken));
-
-      const res = await fetch(`${BASE_URL}/${url}`, options);
-      return await checkReponse(res);
+      
+      return request(`${url}`, options);
     } else {
       return Promise.reject(err);
     }

@@ -1,4 +1,8 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
+import { getIngredients } from './services/actions';
 
 import { HomePage } from './pages/home/home';
 import { NotFoundPage } from './pages/notFound/notFound';
@@ -10,7 +14,13 @@ import { ProfilePage } from './pages/profile/profile';
 import { IngredientPage } from './pages/ingredient/ingredient';
 import { ProtectedRouteElement, ProtectedRouteLoginElement, ProtectedRoutePasswordResetElement } from './components/protected-route/protected-route';
 
-export default function App() {
+const App = () => {
+  const dispatch: any = useDispatch();
+
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
+
 
   let location = useLocation();
   const state = location?.state?.backgroundLocation;
@@ -37,3 +47,5 @@ export default function App() {
     </Routes>
   );
 }
+
+export default App;

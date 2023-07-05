@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 
-import { INGREDIENTS_MODAL_CLOSE, getIngredients } from '../../services/actions';
+import { INGREDIENTS_MODAL_CLOSE } from '../../services/actions';
 import type { ReduxState } from '../../utils/ReduxState';
 
 import Template from '../../components/template/template'
@@ -25,12 +25,10 @@ export const HomePage = ({ id }: IHomePage) => {
   const dispatch: any = useDispatch();
 
   useEffect(() => {
-    dispatch(getIngredients());
-
     if (!!id) {
       openModal('ingredient', id)
     }
-  }, [dispatch, id]);
+  }, [id]);
 
   const [isOpen, setIsOpen] = useState(false);
   const [modalType, setModalType] = useState('');

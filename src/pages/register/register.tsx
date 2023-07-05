@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { register } from '../../services/actions';
@@ -16,7 +16,7 @@ export const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
 
-  const handleChangeField = (e: { target: { name: string; value: string; }; }) => {
+  const handleChangeField = (e: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
     if (name === 'email') {
       setEmail(value);
@@ -27,7 +27,7 @@ export const RegisterPage = () => {
     }
   }
 
-  const handleRegister = (e: { preventDefault: () => void; }) => {
+  const handleRegister = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const data = {

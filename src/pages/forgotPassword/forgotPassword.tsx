@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { forgot } from '../../services/actions';
@@ -16,14 +16,14 @@ export function ForgotPasswordPage() {
 
   const [email, setEmail] = useState('');
 
-  const handleChangeField = (e: { target: { name: string; value: string; }; }) => {
+  const handleChangeField = (e: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
     if (name === 'email') {
       setEmail(value);
     }
   }
 
-  const handleRegister = (e: { preventDefault: () => void; }) => {
+  const handleRegister = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const data = {

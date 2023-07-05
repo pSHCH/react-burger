@@ -1,4 +1,4 @@
-import { useState, useEffect, KeyboardEvent } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import type { ReduxState } from '../../utils/ReduxState';
@@ -41,7 +41,7 @@ export const LoginPage = () => {
     }
   }, [dispatch, location.state?.from, loginState, navigate])
 
-  const handleLogin = (e: KeyboardEvent<HTMLFormElement>) => {
+  const handleLogin = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const data = {
