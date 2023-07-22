@@ -22,7 +22,7 @@ export const LoginPage = () => {
   useEffect(() => {
     if(getCookie('refreshToken') && !getCookie('token')) {
       const token = {
-        'token': getCookie('refreshToken')
+        'token': getCookie('refreshToken') || ''
       };
 
       dispatch(checkUserToken(token));
@@ -45,8 +45,8 @@ export const LoginPage = () => {
     e.preventDefault();
 
     const data = {
-      ...(email && {'email': email}), 
-      ...(password && {'password': password})
+      ...{'email': email || ''}, 
+      ...{'password': password || ''}
     } 
 
     dispatch(login(data));

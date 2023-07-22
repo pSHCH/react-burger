@@ -1,0 +1,32 @@
+.grid {
+  padding: 0 var(--x5);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: var(--x10);
+  grid-row-gap: 0px;
+  height: calc(100vh - 188px);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.title {
+  max-width: var(--max-width);
+  margin: var(--x10) auto var(--x5);
+  font-family: 'Jet Brains Mono';
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 40px;
+  letter-spacing: 0em;
+  color: var(--text);
+  text-align: left;
+  padding: 0 var(--x4);
+  box-sizing: border-box;
+}
+
+.note {
+  margin: var(--x10) auto;
+  color: var(--text);
+  text-align: center;
+}

@@ -54,6 +54,7 @@
   "devDependencies": {
     "@types/react": "^18.2.14",
     "@types/react-dom": "^18.2.6",
-    "@types/uuid": "^9.0.2"
+    "@types/uuid": "^9.0.2",
+    "redux-devtools-extension": "^2.13.9"
   }
 }

@@ -24,7 +24,7 @@ export const ProfilePage = () => {
 
   const refreshToken = getCookie('refreshToken');
   const data = {
-    'token': refreshToken
+    'token': refreshToken || ''
   }
 
   const handleLogout = () => {

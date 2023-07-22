@@ -6,7 +6,7 @@ import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import modalStyle from './modal.module.css';
 
 interface IModal {
-  title: string;
+  title?: string;
   children: JSX.Element;
   onClose: () => void;
 }

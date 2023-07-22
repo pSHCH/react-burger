@@ -14,7 +14,7 @@ const tokenRequest = () => {
   })
 }
 
-const fetchWithRefresh = async (url: string, options?: RequestInit) => {
+export const fetchWithRefresh = async (url: string, options?: RequestInit) => {
   try {
     return request(`${url}`, options);
   } catch (err) {
@@ -45,12 +45,13 @@ export const getIngredientsRequest = () => {
   return request('ingredients', {})
 };
 
-export const postOrderRequest = (data: any) => {
+export const postOrderRequest = (data: {'ingredients': string[]}) => {
   return fetchWithRefresh('orders', {
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      Authorization: getCookie('token') || ''
     },
     body: JSON.stringify(data),
   })

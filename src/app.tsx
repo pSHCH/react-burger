@@ -12,6 +12,9 @@ import { ForgotPasswordPage } from './pages/forgotPassword/forgotPassword';
 import { ResetPasswordPage } from './pages/resetPassword/resetPassword';
 import { ProfilePage } from './pages/profile/profile';
 import { IngredientPage } from './pages/ingredient/ingredient';
+import { FeedsPage } from './pages/feeds/feeds';
+import { FeedPage } from './pages/feed/feed';
+import { OrdersPage } from './pages/orders/orders';
 import { ProtectedRouteElement, ProtectedRouteLoginElement, ProtectedRoutePasswordResetElement } from './components/protected-route/protected-route';
 
 const App = () => {
@@ -21,16 +24,34 @@ const App = () => {
     dispatch(getIngredients());
   }, [dispatch]);
 
-
   let location = useLocation();
   const state = location?.state?.backgroundLocation;
 
   if (state) {
-    const id = location.pathname.split('/ingredients/').pop();
+    if (location.pathname.includes('feed')) {
+      const id = location.pathname.split('/feed/').pop();
 
-    return <Routes location={state?.backgroundLocation || location}>
-      <Route path='/ingredients/:id' element={<HomePage id={id}/>} />
-    </Routes>
+      return <Routes location={state?.backgroundLocation || location}>
+        <Route path='/feed/:id' element={<FeedsPage id={id}/>} />
+      </Routes>
+    }
+
+    if (location.pathname.includes('profile/orders')) {
+      const id = location.pathname.split('/profile/orders/').pop();
+
+      return <Routes location={state?.backgroundLocation || location}>
+        <Route path='/profile/orders/:id' element={<OrdersPage id={id}/>} />
+      </Routes>
+    }
+
+    if (location.pathname.includes('ingredients')) {
+      
+      const id = location.pathname.split('/ingredients/').pop();
+
+      return <Routes location={state?.backgroundLocation || location}>
+        <Route path='/ingredients/:id' element={<HomePage id={id}/>} />
+      </Routes>
+    }
   }
 
   return (
@@ -42,7 +63,10 @@ const App = () => {
       <Route path='/forgot-password' element={<ProtectedRouteLoginElement element={<ForgotPasswordPage />} />} />
       <Route path='/reset-password' element={<ProtectedRouteLoginElement element={<ProtectedRoutePasswordResetElement element={<ResetPasswordPage />} />} />} />
       <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage />} />} />
-      <Route path='/profile/*' element={<ProtectedRouteElement element={<div></div>} />} />
+      <Route path='/profile/orders' element={<ProtectedRouteElement element={<OrdersPage />} />} />
+      <Route path='/profile/orders/:id' element={<ProtectedRouteElement element={<FeedPage />} />} />
+      <Route path='/feed' element={<FeedsPage />} />
+      <Route path='/feed/:id' element={<FeedPage />}/>
       <Route path='*' element={<NotFoundPage />} />
     </Routes>
   );

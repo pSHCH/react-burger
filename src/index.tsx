@@ -1,12 +1,24 @@
 import { BrowserRouter } from 'react-router-dom';  
-import { compose, createStore, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
+import { compose, createStore, applyMiddleware, ActionCreator, Action } from 'redux';
+import { Provider,
+  TypedUseSelectorHook,
+  useDispatch as dispatchHook,
+  useSelector as selectorHook } from 'react-redux';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './app';
 import { rootReducer } from './services/reducers';
 import reportWebVitals from './reportWebVitals';
-import thunk from 'redux-thunk';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import type { ReduxState } from './utils/ReduxState';
+import { TAnyAction } from './services/actions';
+import { FEEDS_URL, ORDERS_URL } from './utils/consts';
+import { socketMiddleware } from './services/middlewares/middlewares';
+import thunkMiddleware from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { TWSStoreActions } from './services/actions/feeds';
+import { TWSOrdersStoreActions } from './services/actions/personalFeeds';
+
 
 declare global {
   interface Window {
@@ -14,12 +26,25 @@ declare global {
   }
 }
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+export const store = createStore(
+  rootReducer,
+  composeWithDevTools(
+    applyMiddleware(thunkMiddleware),
+    applyMiddleware(socketMiddleware(FEEDS_URL, TWSStoreActions)),
+    applyMiddleware(socketMiddleware(ORDERS_URL, TWSOrdersStoreActions)),
+  )
+);
 
-const enhancer = composeEnhancers(applyMiddleware(thunk));
-const store = createStore(rootReducer, enhancer);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+
+export type AppDispatch = ThunkDispatch<ReduxState, never, TAnyAction>; 
+export type AppThunk<TReturn = void> = ActionCreator<
+  ThunkAction<TReturn, Action, ReduxState, TAnyAction>
+>
+
+export const useSelector: TypedUseSelectorHook<ReduxState> = selectorHook;
+export const useDispatch = () => dispatchHook<AppDispatch>(); 
 
 root.render(
   <Provider store={store}>

@@ -33,9 +33,12 @@ const Total: React.FC<ITotal> = ({openModal, total}) => {
     let ids: string[] = [];
 
     
-    bunIngredient.map((item: IIngredient) => ids.push(item._id)) // верхняя булка
+
+    ids.push(bunIngredient[0]._id);
     innerIngrediens.map((item: IIngredient) =>  ids.push(item._id)) // прочее
-    bunIngredient.map((item: IIngredient) =>  ids.push(item._id)) //нижняя булка
+    ids.push(bunIngredient[0]._id);
+
+    
     
     // данные заказа
     data = {'ingredients': ids};

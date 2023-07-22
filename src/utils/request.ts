@@ -8,7 +8,10 @@ export const checkResponse = (res: Response) => {
 }
 
 export const checkSuccess = (res: {
-  accessToken: string; success?: boolean
+  data: any;
+  accessToken: string; 
+  refreshToken: string;
+  success?: boolean;
 }) => {
   if (res && res.success) {
     return res;

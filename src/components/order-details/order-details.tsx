@@ -6,6 +6,10 @@ import orderDetailsStyle from './order-details.module.css';
 const OrderDetails: React.FC = () => {
   const { order } = useSelector((store: ReduxState) => store.order);
 
+  if (!order) {
+    return <p className={orderDetailsStyle.state}>Загрузка...</p>
+  }
+
   return ( 
     <>
       <h2 className={orderDetailsStyle.title}>{order?.order?.number}</h2>

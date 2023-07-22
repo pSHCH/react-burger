@@ -1,0 +1,158 @@
+.wrap {
+  position: relative;
+  border-radius: var(--x10);
+  background-color: var(--modal-bg);
+  padding: var(--x6);
+  margin-bottom: var(--x4);
+}
+
+.title {
+  color: var(--text);
+  margin-top: var(--x6);
+  margin-bottom: var(--x2);
+  font-family: 'Jet Brains Mono';
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: 0em;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.number {
+  color: var(--text);
+  font-family: 'Iceland';
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+}
+
+.date {
+  font-family: 'Jet Brains Mono';
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: right;
+  color: var(--text-secondary);
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--x6);
+}
+
+.state {
+  color: var(--text);
+  font-family: 'Jet Brains Mono';
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+}
+
+.list {
+  display: flex;
+}
+
+.item {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #801AB3;
+  box-sizing: border-box;
+  margin-right: -16px;
+  position: relative;
+  background-color: var(--modal-bg);
+}
+
+.item:first-child {
+  z-index: 6;
+}
+
+.item:nth-child(2) {
+  z-index: 5;
+}
+
+.item:nth-child(3) {
+  z-index: 4;
+}
+
+.item:nth-child(4) {
+  z-index: 3;
+}
+
+.item:nth-child(5) {
+  z-index: 2;
+}
+
+.item:nth-child(6) {
+  z-index: 1;
+}
+
+.price {
+  color: var(--text);
+  font-family: 'Iceland';
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: right;
+  display: flex;
+}
+
+.count {
+  margin-right: var(--x2);
+}
+
+.link {
+  z-index: 7;
+}
+
+.link::after {
+  display: block;
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.srOnly {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.image {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.num {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 62px;
+  height: 62px;
+  z-index: 2;
+  background-color: rgba(0,0,0,.5);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 62px;
+  text-align: center; 
+  color: var(--text);
+}
