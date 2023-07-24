@@ -1,8 +1,7 @@
 import { useMemo, useCallback, useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../index';
 import update from 'immutability-helper';
 import { useDrop } from 'react-dnd';
-import type { ReduxState } from '../../utils/ReduxState';
 import type { IIngredient } from '../../utils/ingredient';
 import { REMOVE_BUN_INGREDIENTS_CART, UPDATE_INGREDIENTS_CART, addToCart } from '../../services/actions';
 import cn from 'classnames';
@@ -18,18 +17,13 @@ interface IBurgerConstructor {
 
 const BurgerConstructor: React.FC<IBurgerConstructor> = ({ openModal }: IBurgerConstructor) => {
   const dispatch = useDispatch(); 
-  const ingredientsInCart = useSelector((store: ReduxState) => store.cart.ingredientsInCart);
-  const { ingredients } = useSelector((store: ReduxState) => store.ingredients);
+  const ingredientsInCart = useSelector(store => store.cart.ingredientsInCart);
+  const { ingredients } = useSelector(store => store.ingredients);
   const [cards, setCards] = useState<IIngredient[]>([]);
 
   useEffect(() => {
     if(getCookie('order') && ingredients.length > 0) {
-      const orderArr = getCookie('order')?.split(',');
-      let order: IIngredient[] = [];
-
-      orderArr?.forEach(item => {
-        order.push(ingredients.filter(elem => elem._id === item)[0])
-      });
+      const order = JSON.parse(getCookie('order') || '');
 
       setCards(order)
 
@@ -37,7 +31,7 @@ const BurgerConstructor: React.FC<IBurgerConstructor> = ({ openModal }: IBurgerC
       setCards(ingredientsInCart) 
     }
     
-  }, [ingredients, ingredientsInCart]);
+  }, [ingredients.length]);
 
   const [, drop] = useDrop({
     accept: 'item',

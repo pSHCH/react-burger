@@ -1,8 +1,7 @@
 
 import Template from '../../components/template/template'
 import {WS_CONNECTION_START, WS_CONNECTION_CLOSED } from '../../services/actions';
-import type { ReduxState } from '../../utils/ReduxState';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../index';
 import { useState, useEffect } from 'react';
 import { FeedList } from '../../components/feeds-list/feeds-list';
 import { FeedStatus } from '../../components/feeds-status/feeds-status'
@@ -20,7 +19,7 @@ export const FeedsPage = ({ id }: IFeedsPage) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalType, setModalType] = useState('');
 
-  const { totalToday, total, orders, wsConnected, error } = useSelector((store: ReduxState) => store.feeds);
+  const { totalToday, total, orders, wsConnected, error } = useSelector(store => store.feeds);
 
   useEffect(() => {
     if (!!id) {

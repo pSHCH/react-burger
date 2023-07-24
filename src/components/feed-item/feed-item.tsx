@@ -1,7 +1,6 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useLocation, Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import type { ReduxState } from '../../utils/ReduxState';
+import { useSelector } from '../../index';
 import feed from './feed-item.module.css';
 import { IFeed } from '../../utils/feed';
 import { getItemsById } from '../../utils/getItemsById'
@@ -14,8 +13,8 @@ interface IFeedItem {
 
 export const FeedItem = ({item, url}: IFeedItem) => {
 
-  let location = useLocation();
-  const { ingredients } = useSelector((store: ReduxState) => store.ingredients);
+  const location = useLocation();
+  const { ingredients } = useSelector(store => store.ingredients);
   const ids = item.ingredients;
   const items = getItemsById(ingredients, ids);
   const price = items.reduce((item, a) => item + a.price, 0);

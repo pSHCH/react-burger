@@ -1,6 +1,6 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch } from './index';
 
 import { getIngredients } from './services/actions';
 
@@ -14,17 +14,18 @@ import { ProfilePage } from './pages/profile/profile';
 import { IngredientPage } from './pages/ingredient/ingredient';
 import { FeedsPage } from './pages/feeds/feeds';
 import { FeedPage } from './pages/feed/feed';
+import { PersonalFeedPage } from './pages/personalFeed/personalFeed';
 import { OrdersPage } from './pages/orders/orders';
 import { ProtectedRouteElement, ProtectedRouteLoginElement, ProtectedRoutePasswordResetElement } from './components/protected-route/protected-route';
 
 const App = () => {
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getIngredients());
   }, [dispatch]);
 
-  let location = useLocation();
+  const location = useLocation();
   const state = location?.state?.backgroundLocation;
 
   if (state) {
@@ -64,7 +65,7 @@ const App = () => {
       <Route path='/reset-password' element={<ProtectedRouteLoginElement element={<ProtectedRoutePasswordResetElement element={<ResetPasswordPage />} />} />} />
       <Route path='/profile' element={<ProtectedRouteElement element={<ProfilePage />} />} />
       <Route path='/profile/orders' element={<ProtectedRouteElement element={<OrdersPage />} />} />
-      <Route path='/profile/orders/:id' element={<ProtectedRouteElement element={<FeedPage />} />} />
+      <Route path='/profile/orders/:id' element={<ProtectedRouteElement element={<PersonalFeedPage />} />} />
       <Route path='/feed' element={<FeedsPage />} />
       <Route path='/feed/:id' element={<FeedPage />}/>
       <Route path='*' element={<NotFoundPage />} />

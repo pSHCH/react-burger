@@ -14,8 +14,13 @@ type TOrderAction = { (): {
 
 type TOrderSuccessAction = { (): {
   readonly type: typeof GET_ORDER_SUCCESS,
-  readonly data: any
-} };
+  readonly data: {
+    data: any;
+    accessToken: string;
+    refreshToken: string;
+    success?: boolean | undefined;
+  }
+}};
 
 type TOrderFailedAction = { (): {
   readonly type: typeof GET_ORDER_FAILED

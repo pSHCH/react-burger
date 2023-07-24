@@ -20,7 +20,7 @@ export const fetchWithRefresh = async (url: string, options?: RequestInit) => {
   } catch (err) {
     if ((err as Error).message === 'jwt expired') {
 
-      const refreshData: { data?: any; refreshToken?: string; accessToken?: string;  } = await tokenRequest();
+      const refreshData: { refreshToken?: string; accessToken?: string;  } = await tokenRequest();
 
       if (refreshData.accessToken) {
         setCookie(
@@ -57,7 +57,11 @@ export const postOrderRequest = (data: {'ingredients': string[]}) => {
   })
 }
 
-export const registerRequest = (data: any) => {
+export const registerRequest = (data: {
+  'email': string,
+  'password': string,
+  'name': string
+}) => {
   return request('auth/register', {
     method: 'POST',
     headers: {
@@ -68,7 +72,10 @@ export const registerRequest = (data: any) => {
   })
 };
 
-export const loginRequest = (data: any) => {
+export const loginRequest = (data: {
+  'email': string,
+  'password': string 
+}) => {
   return request(`auth/login`, {
     method: 'POST', 
     headers: {
@@ -79,7 +86,7 @@ export const loginRequest = (data: any) => {
   })
 }
 
-export const logoutRequest = (data: any) => {
+export const logoutRequest = (data: { 'token': string }) => {
   return request(`auth/logout`, {
     method: 'POST', 
     headers: {
@@ -90,7 +97,7 @@ export const logoutRequest = (data: any) => {
   })
 }
 
-export const checkToken = (data: any) => {
+export const checkToken = (data: { 'token': string }) => {
   return request(`auth/token`, {
     method: 'POST',
     headers: {
@@ -101,7 +108,7 @@ export const checkToken = (data: any) => {
   })
 }
 
-export const forgotRequest = (data: any) => {
+export const forgotRequest = (data: { 'email': string }) => {
   return request(`password-reset`, {
     method: 'POST', 
     headers: {
@@ -112,7 +119,10 @@ export const forgotRequest = (data: any) => {
   })
 }
 
-export const resetRequest = (data: any) => {
+export const resetRequest = (data: {
+  'token': string, 
+  'password': string
+}) => {
   return request(`password-reset/reset`, {
     method: 'POST', 
     headers: {
@@ -133,7 +143,11 @@ export const userRequest = () => {
   })
 }
 
-export const updateUserRequest = (data: any) => {
+export const updateUserRequest = (data: {
+  'email'?: string,
+  'password'?: string,
+  'name'?: string,
+}) => {
   return fetchWithRefresh(`auth/user`, {
     method: 'PATCH', 
     headers: {

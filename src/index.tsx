@@ -31,7 +31,7 @@ export const store = createStore(
   composeWithDevTools(
     applyMiddleware(thunkMiddleware),
     applyMiddleware(socketMiddleware(FEEDS_URL, TWSStoreActions)),
-    applyMiddleware(socketMiddleware(ORDERS_URL, TWSOrdersStoreActions)),
+    applyMiddleware(socketMiddleware(ORDERS_URL, TWSOrdersStoreActions, true)),
   )
 );
 

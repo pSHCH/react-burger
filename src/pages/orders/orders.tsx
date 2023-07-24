@@ -1,9 +1,8 @@
 
 import Template from '../../components/template/template';
 import { useState, useEffect } from 'react';
-import type { ReduxState } from '../../utils/ReduxState';
 import {WS_ORDERS_CONNECTION_START, WS_ORDERS_CONNECTION_CLOSED } from '../../services/actions';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../index';
 import { logout } from '../../services/actions';
 import { getCookie } from '../../utils/cookie';
 import { NavLink } from 'react-router-dom';
@@ -17,7 +16,7 @@ interface IOrdersPage{
 };
 
 export const OrdersPage = ({ id }: IOrdersPage) => {
-  const dispatch: any = useDispatch(); 
+  const dispatch = useDispatch(); 
   const refreshToken = getCookie('refreshToken');
   const data = {
     'token': refreshToken || ''
@@ -29,7 +28,7 @@ export const OrdersPage = ({ id }: IOrdersPage) => {
   const [isOpen, setIsOpen] = useState(false);
   const [modalType, setModalType] = useState('');
 
-  const { orders, wsConnected, error } = useSelector((store: ReduxState) => store.personalFeeds);
+  const { orders, wsConnected, error } = useSelector(store => store.personalFeeds);
 
   useEffect(() => {
     if (!!id) {
@@ -68,7 +67,7 @@ export const OrdersPage = ({ id }: IOrdersPage) => {
     if (orders.length === 0) {
       return <p className={ordersStyle.note}>Заказов пока нет</p>
     }
-
+    
     return <FeedList orders={orders} url='profile/orders'/>
   }
 

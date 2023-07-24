@@ -215,7 +215,7 @@ export const forgot = (data: { 'email': string }) => {
 export const reset = (data: {
   'token': string, 
   'password': string
-} ) => {
+}) => {
   return function(dispatch: AppDispatch) {
     dispatch({
       type: POST_RESET_REQUEST

@@ -1,3 +1,5 @@
+import { IFeed } from '../../utils/feed';
+
 import {
     WS_CONNECTION_SUCCESS,
     WS_CONNECTION_ERROR,
@@ -8,7 +10,7 @@ import {
   
   type TWSState = {
     wsConnected: boolean;
-    orders: any[];
+    orders: IFeed[];
     total: string;
     totalToday: string;
     error?: Event;

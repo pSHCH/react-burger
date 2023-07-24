@@ -8,7 +8,10 @@ import { TAnyAction } from '../actions';
 import { getCookie } from '../../utils/cookie';
 import { fetchWithRefresh } from '../api';
 
-export const socketMiddleware = (wsUrl: string, wsActions: typeof TWSStoreActions | typeof TWSOrdersStoreActions): Middleware => {
+export const socketMiddleware = (
+  wsUrl: string, 
+  wsActions: typeof TWSStoreActions | typeof TWSOrdersStoreActions,
+  withToken?: boolean): Middleware => {
   return ((store: MiddlewareAPI<AppDispatch, ReduxState>) => {
     let socket: WebSocket | null = null;
 
@@ -16,16 +19,16 @@ export const socketMiddleware = (wsUrl: string, wsActions: typeof TWSStoreAction
       const { dispatch } = store;
       const { type } = action;
       const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
-      
+
+
       let token = getCookie('token');
       if(token){
         token = token.replace('Bearer ','')
       }
 
-      let url = token ? `${wsUrl}?token=${token}` : wsUrl;
-
+      const url = withToken ? `${wsUrl}?token=${token}` : wsUrl;
       
-      if (type === wsInit && token) {
+      if (type === wsInit) {
         socket = new WebSocket(url);
       }
       if (socket) {

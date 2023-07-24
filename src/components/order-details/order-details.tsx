@@ -1,10 +1,9 @@
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../index';
 import React from 'react';
-import type { ReduxState } from '../../utils/ReduxState';
 import orderDetailsStyle from './order-details.module.css';
 
 const OrderDetails: React.FC = () => {
-  const { order } = useSelector((store: ReduxState) => store.order);
+  const { order } = useSelector(store => store.order);
 
   if (!order) {
     return <p className={orderDetailsStyle.state}>Загрузка...</p>

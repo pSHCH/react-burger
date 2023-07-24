@@ -1,7 +1,6 @@
 import { useState, useEffect, FormEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import type { ReduxState } from '../../utils/ReduxState';
+import { useDispatch, useSelector } from '../../index';
 import { login, checkUserToken } from '../../services/actions';
 import Template from '../../components/template/template';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -11,10 +10,10 @@ import { getCookie } from '../../utils/cookie';
 import loginStyles from './login.module.css';
 
 export const LoginPage = () => {
-  const dispatch: any = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  let location = useLocation();
-  const loginState = useSelector((store: ReduxState) => store.login.login);
+  const location = useLocation();
+  const loginState = useSelector(store => store.login.login);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

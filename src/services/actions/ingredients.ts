@@ -29,8 +29,8 @@ type TIngredientsFailedAction = { (): {readonly type: typeof GET_INGREDIENTS_FAI
 
 type TIngredientsCartAction = { (): {readonly type: typeof GET_INGREDIENTS_CART} }
 type TIngredientsAddCartAction = { (): {
-  readonly type: typeof ADD_INGREDIENTS_CART,
-   item: IIngredient,
+  type: typeof ADD_INGREDIENTS_CART,
+  item: IIngredient,
    payload: {
     id: string
   }
@@ -85,8 +85,8 @@ export const getIngredients = () => {
 export const addToCart = (data: IIngredient) => {
   return {
     type: ADD_INGREDIENTS_CART,
-    payload: {
-      ...data,  
+    item: data, 
+    payload: { 
       id: uuidv4()
     }
   }

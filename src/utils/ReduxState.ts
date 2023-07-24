@@ -51,14 +51,14 @@ export interface ReduxState {
   feeds: {
     wsConnected: boolean;
     error: Event;
-    orders: any[];
+    orders: IFeed[];
     total: string;
     totalToday: string;
   };
   personalFeeds: {
     wsConnected: boolean;
     error: Event;
-    orders: any[];
+    orders: IFeed[];
     total: string;
     totalToday: string;
   };

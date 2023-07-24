@@ -1,3 +1,5 @@
+import { IFeed } from '../../utils/feed';
+
 export const WS_ORDERS_CONNECTION_START: 'WS_ORDERS_CONNECTION_START' = 'WS_ORDERS_CONNECTION_START';
 export const WS_ORDERS_CONNECTION_SUCCESS: 'WS_ORDERS_CONNECTION_SUCCESS' = 'WS_ORDERS_CONNECTION_SUCCESS';
 export const WS_ORDERS_CONNECTION_ERROR: 'WS_ORDERS_CONNECTION_ERROR' = 'WS_ORDERS_CONNECTION_ERROR';
@@ -8,14 +10,14 @@ export const WS_ORDERS_SEND_MESSAGE: 'WS_ORDERS_SEND_MESSAGE' = 'WS_ORDERS_SEND_
 type IWSOrdersConnectionStart = { (): {readonly type: typeof WS_ORDERS_CONNECTION_START} }
 type IWSOrdersConnectionSuccessAction = { (): {readonly type: typeof WS_ORDERS_CONNECTION_SUCCESS} }
 type IWSOrdersConnectionErrorAction = { (): {
-    error: any;
+    error: Event;
     readonly type: typeof WS_ORDERS_CONNECTION_ERROR
 } }
 type IWSOrdersConnectionClosedAction = { (): {readonly type: typeof WS_ORDERS_CONNECTION_CLOSED} }
 type IWSOrdersGetMessageAction = { (): {
   readonly type: typeof WS_ORDERS_GET_MESSAGE;
 
-  readonly orders: any[]
+  readonly orders: IFeed[]
   readonly total: string
   readonly totalToday: string
 } }

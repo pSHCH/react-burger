@@ -1,6 +1,5 @@
 import React from 'react';
-import type { ReduxState } from '../../utils/ReduxState';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../index';
 
 import ingredientDetailsStyle from './ingredient-details.module.css';
 
@@ -9,7 +8,7 @@ interface IIngredientDetails {
 };
 
 const IngredientDetails: React.FC<IIngredientDetails> = ({ id }) => {
-  const { ingredients } = useSelector((store: ReduxState) => store.ingredients);
+  const { ingredients } = useSelector(store => store.ingredients);
   const ingredient = ingredients.find(({ _id }) => _id === id)
 
   if (!ingredient) {

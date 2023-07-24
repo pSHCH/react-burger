@@ -1,6 +1,5 @@
 import React from 'react';
-import type { ReduxState } from '../../utils/ReduxState';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../index';
 import { SET_TAB_ACTIVE } from '../../services/actions';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -9,7 +8,7 @@ import tabsStyle from './tabs.module.css';
 
 const Tabs: React.FC = () => {
   const dispatch = useDispatch(); 
-  const { tab } = useSelector((store: ReduxState) => store.tab);
+  const { tab } = useSelector(store => store.tab);
 
   const setActiveTab = (type: string) => {
     dispatch({ type: SET_TAB_ACTIVE, tab: type });

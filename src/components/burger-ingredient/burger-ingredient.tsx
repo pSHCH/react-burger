@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRef } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch } from '../../index';
 import { REMOVE_INGREDIENTS_CART } from '../../services/actions';
 import type { IIngredient } from '../../utils/ingredient';
 import { useDrag, useDrop } from 'react-dnd'
