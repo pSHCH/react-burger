@@ -24,7 +24,7 @@ export const HomePage = ({ id }: IHomePage) => {
 
   useEffect(() => {
     if (!!id) {
-      openModal('ingredient', id)
+      openModal('ingredient')
     }
   }, [id]);
 
@@ -43,7 +43,7 @@ export const HomePage = ({ id }: IHomePage) => {
     );
   }
 
-  const openModal = (type: string, id?: string) => {
+  const openModal = (type: string) => {
     setIsOpen(true);
     setModalType(type);
   }

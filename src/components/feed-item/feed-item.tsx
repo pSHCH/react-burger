@@ -9,9 +9,10 @@ import { formatDate } from '../../utils/formatDate';
 interface IFeedItem { 
   item: IFeed;
   url: string;
+  openModal: (type: string) => void,
 };
 
-export const FeedItem = ({item, url}: IFeedItem) => {
+export const FeedItem = ({item, url, openModal}: IFeedItem) => {
 
   const location = useLocation();
   const { ingredients } = useSelector(store => store.ingredients);
@@ -20,8 +21,14 @@ export const FeedItem = ({item, url}: IFeedItem) => {
   const price = items.reduce((item, a) => item + a.price, 0);
   const images = items.slice(0, 6);
 
+  const setModalData = () => {
+
+    // dispatch({ type: INGREDIENTS_MODAL_OPEN, ingredient: item })
+    openModal('feed');
+  }
+
   return (
-    <li className={feed.wrap}>
+    <li className={feed.wrap} onClick={() => setModalData()}>
       <Link
         to={`/${url}/${item._id}`}
         className={feed.link}

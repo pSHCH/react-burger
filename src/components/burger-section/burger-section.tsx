@@ -4,7 +4,7 @@ import BurgerItem from '../burger-item/burger-item';
 import burgerSectionStyle from './burger-section.module.css';
 
 interface IBurgerSection {
-  openModal: (type: string, id?: string) => void;
+  openModal: (type: string) => void;
   title: string;
   data: IIngredient[];
   refElem: () => void;

@@ -8,7 +8,7 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import burgerItemStyle from './burger-item.module.css';
 
 interface IBurgerItem {
-  openModal: (type: string, id?: string) => void,
+  openModal: (type: string) => void,
   item: IIngredient,
 };
 

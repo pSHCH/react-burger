@@ -67,8 +67,8 @@ export const OrdersPage = ({ id }: IOrdersPage) => {
     if (orders.length === 0) {
       return <p className={ordersStyle.note}>Заказов пока нет</p>
     }
-    
-    return <FeedList orders={orders} url='profile/orders'/>
+
+    return <FeedList orders={orders} url='profile/orders' openModal={openModal}/>
   }
 
   return (

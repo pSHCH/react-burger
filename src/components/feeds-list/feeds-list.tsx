@@ -6,13 +6,14 @@ import { IFeed } from '../../utils/feed';
 interface IFeedList{
   orders: IFeed[];
   url: string;
+  openModal: (type: string) => void;
 };
 
-export const FeedList = ({orders, url}: IFeedList) => {
+export const FeedList = ({orders, url, openModal}: IFeedList) => {
   
   return (
     <ul className={cn(feed.wrap, 'custom-scroll')}>
-      {orders.map(item => <FeedItem item={item} key={item.number} url={url}/>)}
+      {orders.map(item => <FeedItem item={item} key={item.number} url={url} openModal={openModal}/>)}
     </ul>
   )
 };

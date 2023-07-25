@@ -9,7 +9,7 @@ import Tabs from '../tabs/tabs';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
 
 interface IBurgerIngredients {
-  openModal: (type: string, id?: string) => void;
+  openModal: (type: string) => void;
 };
 
 const BurgerIngredients = ({openModal}: IBurgerIngredients) => {

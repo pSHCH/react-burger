@@ -23,7 +23,7 @@ export const FeedsPage = ({ id }: IFeedsPage) => {
 
   useEffect(() => {
     if (!!id) {
-      openModal('feed')
+      openModal('feed');
     }
   }, [id]);
 
@@ -64,7 +64,7 @@ export const FeedsPage = ({ id }: IFeedsPage) => {
       <>
         <h1 className={feeds.title}>Лента заказов</h1>
         <main className={feeds.grid}>
-          <FeedList orders={orders} url='feed'/>
+          <FeedList orders={orders} url='feed' openModal={openModal}/>
           <FeedStatus totalToday={totalToday} total={total} orders={orders}/>
         </main>
 
