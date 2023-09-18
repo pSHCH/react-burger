@@ -1,0 +1,54 @@
+.grid {
+  padding: 120px var(--x5) 0;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding-bottom: var(--x20);
+}
+
+.info {
+  font-family: 'Jet Brains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--text-secondary);
+  margin-top: var(--x20);
+}
+
+.link {
+  display: inline-block;
+  font-family: 'Jet Brains Mono';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  color: var(--text-secondary);
+  padding: var(--x4) 0;
+  text-decoration: none;
+}
+
+.active {
+  color: var(--text);
+}
+
+.input {
+  margin-bottom: var(--x6);
+}
+
+.input:last-child {
+  margin-bottom: 0;
+}
+
+.buttons {
+  display: flex;
+  min-width: 100%;
+  justify-content: flex-end;
+  gap: var(--x5);
+}
+
+.note {
+  margin: var(--x10) auto;
+  color: var(--text);
+  text-align: center;
+}

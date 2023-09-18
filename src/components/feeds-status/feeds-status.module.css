@@ -1,0 +1,65 @@
+.table {
+  display: flex;
+}
+
+.col {
+  width: 50%;
+}
+
+.status {
+  font-family: 'Jet Brains Mono';
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: 0em;
+  margin-top: 0;
+  margin-bottom: var(--x6);
+}
+
+.orders {
+  font-family: 'Iceland';
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.done {
+  color: #00CCCC;
+}
+
+.order {
+  margin-bottom: var(--x2);
+}
+
+.order:last-child {
+  margin-bottom: 0;
+}
+
+.title {
+  margin-top: var(--x15);
+  font-family: 'Jet Brains Mono';
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 30px;
+  letter-spacing: 0em;
+  color: var(--text);
+}
+
+.count {
+  font-family: 'Iceland';
+  font-size: 144px;
+  font-weight: 400;
+  line-height: 120px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: var(--text);
+  text-shadow: #3333FF80 4px 10px 20px;
+  margin: 0;
+
+}

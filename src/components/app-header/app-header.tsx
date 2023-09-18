@@ -16,7 +16,7 @@ const AppHeader: React.FC = () => {
                 <MenuItem link='/' title='Конструктор' icon ='list'/>
               </li>
               <li className={headerStyles.item}>
-                <MenuItem link='/orders' title='Лента заказов' />
+                <MenuItem link='/feed' title='Лента заказов' />
               </li>
             </ul>
           </li>

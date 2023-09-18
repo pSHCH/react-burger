@@ -1,8 +1,7 @@
 import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../index';
 import { reset } from '../../services/actions';
-import type { ReduxState } from '../../utils/ReduxState';
 import Template from '../../components/template/template';
 import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useNavigate } from 'react-router-dom';
@@ -10,9 +9,9 @@ import { useNavigate } from 'react-router-dom';
 import resetPasswordStyles from './resetPassword.module.css';
 
 export function ResetPasswordPage() {  
-  const dispatch: any = useDispatch();  
+  const dispatch = useDispatch();  
   const navigate = useNavigate();
-  const resetState = useSelector((store: ReduxState) => store.reset.state);
+  const resetState = useSelector(store => store.reset.state);
 
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');;

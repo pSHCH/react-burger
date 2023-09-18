@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../index';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
 
 import { INGREDIENTS_MODAL_CLOSE } from '../../services/actions';
-import type { ReduxState } from '../../utils/ReduxState';
 
 import Template from '../../components/template/template'
 import BurgerIngredients from '../../components/burger-ingredients/burger-ingredients';
@@ -21,12 +19,12 @@ interface IHomePage{
 };
 
 export const HomePage = ({ id }: IHomePage) => {
-  const { ingredientsRequest, ingredientsFailed, ingredients } = useSelector((store: ReduxState) => store.ingredients);
-  const dispatch: any = useDispatch();
+  const { ingredientsRequest, ingredientsFailed, ingredients } = useSelector(store => store.ingredients);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!!id) {
-      openModal('ingredient', id)
+      openModal('ingredient')
     }
   }, [id]);
 
@@ -45,7 +43,7 @@ export const HomePage = ({ id }: IHomePage) => {
     );
   }
 
-  const openModal = (type: string, id?: string) => {
+  const openModal = (type: string) => {
     setIsOpen(true);
     setModalType(type);
   }
@@ -80,7 +78,3 @@ export const HomePage = ({ id }: IHomePage) => {
     </Template>
   );
 }
-
-HomePage.propTypes = {
-  id: PropTypes.string,
-};

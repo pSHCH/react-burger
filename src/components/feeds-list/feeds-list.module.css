@@ -1,0 +1,6 @@
+.wrap {
+  height: calc( 100vh - 188px );
+  box-sizing: border-box;
+  overflow-y: scroll;
+  padding-right: var(--x2);
+}

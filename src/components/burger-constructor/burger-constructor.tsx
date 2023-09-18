@@ -1,14 +1,13 @@
 import { useMemo, useCallback, useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../index';
 import update from 'immutability-helper';
 import { useDrop } from 'react-dnd';
-import type { ReduxState } from '../../utils/ReduxState';
 import type { IIngredient } from '../../utils/ingredient';
 import { REMOVE_BUN_INGREDIENTS_CART, UPDATE_INGREDIENTS_CART, addToCart } from '../../services/actions';
 import cn from 'classnames';
 import BurgerIngredient from '../burger-ingredient/burger-ingredient';
 import Total from '../total/total';
-import { getCookie } from '../../utils/cookie';
+import { getCookie, deleteCookie } from '../../utils/cookie';
 
 import burgerConstructorStyle from './burger-constructor.module.css';
 
@@ -18,26 +17,22 @@ interface IBurgerConstructor {
 
 const BurgerConstructor: React.FC<IBurgerConstructor> = ({ openModal }: IBurgerConstructor) => {
   const dispatch = useDispatch(); 
-  const ingredientsInCart = useSelector((store: ReduxState) => store.cart.ingredientsInCart);
-  const { ingredients } = useSelector((store: ReduxState) => store.ingredients);
+  const ingredientsInCart = useSelector(store => store.cart.ingredientsInCart);
+  const { ingredients } = useSelector(store => store.ingredients);
   const [cards, setCards] = useState<IIngredient[]>([]);
 
   useEffect(() => {
     if(getCookie('order') && ingredients.length > 0) {
-      const orderArr = getCookie('order')?.split(',');
-      let order: IIngredient[] = [];
-
-      orderArr?.forEach(item => {
-        order.push(ingredients.filter(elem => elem._id === item)[0])
-      });
-
+      const order = JSON.parse(getCookie('order') || '');
       setCards(order)
-
     } else {
       setCards(ingredientsInCart) 
     }
-    
-  }, [ingredients, ingredientsInCart]);
+
+    if (cards.length !== 0 ) {
+      deleteCookie('order', { path: '/' })
+    }
+  }, [ingredients.length, ingredientsInCart]);
 
   const [, drop] = useDrop({
     accept: 'item',
@@ -66,7 +61,7 @@ const BurgerConstructor: React.FC<IBurgerConstructor> = ({ openModal }: IBurgerC
 
   useEffect(() => {
     dispatch({ type: UPDATE_INGREDIENTS_CART, cards });
-  }, [cards]);
+  }, [cards, dispatch]);
 
   const wrapIngredient = useMemo(() => !!ingredientsInCart.length && ingredientsInCart.filter(item => item?.type === 'bun'), [ingredientsInCart]) || [];
   const innerIngredients = useMemo(() => !!ingredientsInCart.length && ingredientsInCart.filter(item => item?.type !== 'bun'), [ingredientsInCart]) || [];

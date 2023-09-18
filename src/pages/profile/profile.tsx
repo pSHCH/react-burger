@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import Template from '../../components/template/template';
 import { NavLink } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../index';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { logout, updateUser } from '../../services/actions';
-import type { ReduxState } from '../../utils/ReduxState';
 import { getCookie } from '../../utils/cookie';
 
 import profileStyles from './profile.module.css';
@@ -18,13 +17,13 @@ export const ProfilePage = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
 
-  const dispatch: any = useDispatch(); 
-  let user = useSelector((store: ReduxState) => store.user);
-  let updateUserData = useSelector((store: ReduxState) => store.updateUser);
+  const dispatch = useDispatch(); 
+  let user = useSelector(store => store.user);
+  let updateUserData = useSelector(store => store.updateUser);
 
   const refreshToken = getCookie('refreshToken');
   const data = {
-    'token': refreshToken
+    'token': refreshToken || ''
   }
 
   const handleLogout = () => {

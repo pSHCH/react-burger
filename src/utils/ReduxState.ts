@@ -1,4 +1,5 @@
-import { IIngredient } from "./ingredient";
+import { IIngredient } from './ingredient';
+import { IFeed } from './feed';
 
 export interface ReduxState {
   cart: {
@@ -46,5 +47,19 @@ export interface ReduxState {
   };
   tab: {
     tab: string;
+  };
+  feeds: {
+    wsConnected: boolean;
+    error: Event;
+    orders: IFeed[];
+    total: string;
+    totalToday: string;
+  };
+  personalFeeds: {
+    wsConnected: boolean;
+    error: Event;
+    orders: IFeed[];
+    total: string;
+    totalToday: string;
   };
 }

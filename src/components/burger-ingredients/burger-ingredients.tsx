@@ -1,8 +1,7 @@
 import cn from 'classnames';
 import { useMemo, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../index';
 import { SET_TAB_ACTIVE } from '../../services/actions';
-import type { ReduxState } from '../../utils/ReduxState';
 import { useInView } from 'react-intersection-observer';
 import BurgerSection from '../burger-section/burger-section';
 import Tabs from '../tabs/tabs';
@@ -10,12 +9,12 @@ import Tabs from '../tabs/tabs';
 import burgerIngredientsStyle from './burger-ingredients.module.css';
 
 interface IBurgerIngredients {
-  openModal: (type: string, id?: string) => void;
+  openModal: (type: string) => void;
 };
 
 const BurgerIngredients = ({openModal}: IBurgerIngredients) => {
   const dispatch = useDispatch(); 
-  const { ingredients } = useSelector((store: ReduxState) => store.ingredients);
+  const { ingredients } = useSelector(store => store.ingredients);
 
   const [bunRef, inViewBuns] = useInView({
     threshold: 0,

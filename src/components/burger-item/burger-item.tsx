@@ -1,7 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from '../../index';
 import { useLocation, Link } from 'react-router-dom';
 import { useDrag } from 'react-dnd';
-import type { ReduxState } from '../../utils/ReduxState';
 import { INGREDIENTS_MODAL_OPEN } from '../../services/actions';
 import type { IIngredient } from '../../utils/ingredient';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -9,7 +8,7 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import burgerItemStyle from './burger-item.module.css';
 
 interface IBurgerItem {
-  openModal: (type: string, id?: string) => void,
+  openModal: (type: string) => void,
   item: IIngredient,
 };
 
@@ -17,8 +16,8 @@ const BurgerItem: React.FC<IBurgerItem> = ({openModal, item}) => {
 
   const { image_large, name, price, _id } = item;
   const dispatch = useDispatch();
-  let location = useLocation();
-  const ingredientsInCart = useSelector((store: ReduxState) => store.cart.ingredientsInCart);
+  const location = useLocation();
+  const ingredientsInCart = useSelector(store => store.cart.ingredientsInCart);
   const ingredientsCount = ingredientsInCart.filter(item => item?._id === _id).length;
   
   const setModalData = () => {

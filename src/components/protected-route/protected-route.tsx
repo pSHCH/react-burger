@@ -1,17 +1,15 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { getCookie } from '../../utils/cookie';
 import { useEffect, ReactElement } from 'react';
-import type { ReduxState } from '../../utils/ReduxState';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from '../../index';
 import { getUser } from '../../services/actions';
-import PropTypes from 'prop-types';
 
 type TElement = {
   element: ReactElement
 }
 
 export const ProtectedRoutePasswordResetElement = ({element}: TElement) => {
-  const forgot = useSelector((store: ReduxState) => store.forgot.state);
+  const forgot = useSelector(store => store.forgot.state);
 
   if (forgot !== 'success') {
     return <Navigate to='/forgot-password' />;
@@ -20,13 +18,9 @@ export const ProtectedRoutePasswordResetElement = ({element}: TElement) => {
   return element;
 }
 
-ProtectedRoutePasswordResetElement.propTypes = { 
-  element: PropTypes.object.isRequired
-};
-
 export const ProtectedRouteLoginElement = ({element}: TElement) => {
-  const dispatch: any = useDispatch();
-  let user = useSelector((store: ReduxState) => store.user);
+  const dispatch = useDispatch();
+  let user = useSelector(store => store.user);
   const isToken = getCookie('token');
   const succes = user.loadState === 'succes';
 
@@ -43,15 +37,11 @@ export const ProtectedRouteLoginElement = ({element}: TElement) => {
   return element;
 }
 
-ProtectedRouteLoginElement.propTypes = { 
-  element: PropTypes.object.isRequired
-};
-
 export const ProtectedRouteElement = ({ element }: TElement) => {
-  const dispatch: any = useDispatch();
-  let location = useLocation();
+  const dispatch = useDispatch();
+  const location = useLocation();
 
-  let user = useSelector((store: ReduxState) => store.user);
+  let user = useSelector(store => store.user);
   const isToken = getCookie('token');
   const failed = user.loadState === 'failed';
   const loading = user.loadState === 'loading';
@@ -73,7 +63,3 @@ export const ProtectedRouteElement = ({ element }: TElement) => {
 
   return element;
 }
-
-ProtectedRouteElement.propTypes = { 
-  element: PropTypes.object.isRequired
-};
